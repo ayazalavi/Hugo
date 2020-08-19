@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_margin="10dp">
+
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/card"
+        app:cardCornerRadius="37dp"
+        >
+            <ImageView android:layout_width="74dp" android:layout_height="74dp"
+            android:src="@drawable/home_store"
+            android:scaleType="centerCrop"/>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                app:cardCornerRadius="30dp"
+                android:layout_margin="7dp"
+                android:id="@+id/cardView">
+
+                <ImageView android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:src="@drawable/store_photo"
+                    android:scaleType="centerCrop"
+                    android:id="@+id/icon"/>
+
+            </androidx.cardview.widget.CardView>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="123123"
+        android:textSize="10sp"
+        android:gravity="center"
+        android:textColor="@color/grayText"
+        android:fontFamily="@font/gotham_medium"
+        android:layout_marginTop="5dp"
+        />
+</LinearLayout>

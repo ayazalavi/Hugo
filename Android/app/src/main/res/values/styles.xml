@@ -1,0 +1,130 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="@style/Theme.AppCompat.Light">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/purpleBrandTitle</item>
+        <item name="colorPrimaryDark">@color/purpleHomeTitle</item>
+        <item name="colorAccent">@color/grayText</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.NavigationTitleHome" parent="AppTheme">
+        <item name="android:background">#00000000</item>
+        <item name="fontFamily">@font/gotham_ultra</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/purpleNavigationBar</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="AppTheme.NavigationTitleSearch" parent="AppTheme">
+        <item name="android:background">#00000000</item>
+        <item name="fontFamily">@font/gotham_bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/purpleNavigationBar</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="AppTheme.NavigationButtonHome" parent="AppTheme">
+        <item name="android:background">@android:color/white</item>
+        <item name="fontFamily">@font/gotham_book</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/grayText</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="AppTheme.Banner" parent="AppTheme">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:gravity">left</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="AppTheme.NavigationTitle" parent="AppTheme">
+        <item name="android:background">@android:color/white</item>
+        <item name="fontFamily">@font/gotham_bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/purpleNavigationBar</item>
+    </style>
+
+    <style name="AppTheme.ListTitle" parent="AppTheme">
+        <!-- Customize your theme here. -->
+        <item name="android:background">#00FFFFFF</item>
+        <item name="fontFamily">@font/gotham_bold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/purpleHomeTitle</item>
+    </style>
+
+    <style name="AppTheme.ViewMore" parent="AppTheme">
+        <!-- Customize your theme here. -->
+        <item name="android:background">#00FFFFFF</item>
+        <item name="fontFamily">@font/gotham_medium</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/grayText</item>
+    </style>
+
+    <style name="AppTheme.StoreHome" parent="AppTheme">
+        <!-- Customize your theme here. -->
+        <item name="cardBackgroundColor">#00FFFFFF</item>
+        <item name="cardCornerRadius">37dp</item>
+        <item name="borderWidth">3dp</item>
+        <item name="strokeColor">@color/purpleProductTitle</item>
+        <item name="strokeWidth">3dp</item>
+    </style>
+
+    <style name="AppTheme.StoreButtonGray" parent="AppTheme">
+        <!-- Customize your theme here. -->
+        <item name="android:textColor">@color/graySubtitle</item>
+        <item name="fontFamily">@font/gotham_medium</item>
+        <item name="android:textSize">9sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="AppTheme.StoreButtonPurple" parent="AppTheme">
+        <!-- Customize your theme here. -->
+        <item name="android:textColor">@color/purpleProductTitle</item>
+        <item name="fontFamily">@font/gotham_medium</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="AppTheme.AppTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">@color/purpleHomeTitle</item>
+        <item name="tabIndicatorHeight">1dp</item>
+        <item name="tabBackground">?attr/selectableItemBackground</item>
+        <item name="tabTextAppearance">@style/AppTheme.AppTabTextAppearance</item>
+        <item name="tabSelectedTextColor">@color/purpleHomeTitle</item>
+
+    </style>
+
+    <!-- for text -->
+    <style name="AppTheme.AppTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/gotham_medium</item>
+        <item name="android:textColor">@color/graySubtitle</item>
+        <item name="textAllCaps">true</item>
+    </style>
+
+    <style name="AppTheme.ProductPrice" parent="AppTheme">
+        <!-- Customize your theme here. -->
+        <item name="android:textColor">@color/purpleProductTitle</item>
+        <item name="fontFamily">@font/gotham_medium</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="AppTheme.ProductName" parent="AppTheme">
+        <!-- Customize your theme here. -->
+        <item name="android:textColor">@color/graySubtitle</item>
+        <item name="fontFamily">@font/gotham_medium</item>
+        <item name="android:textSize">9sp</item>
+    </style>
+
+    <style name="AppTheme.ProductSubText" parent="AppTheme">
+        <!-- Customize your theme here. -->
+        <item name="android:textColor">@color/graySubtitle</item>
+        <item name="fontFamily">@font/gotham_medium</item>
+        <item name="android:textSize">6sp</item>
+    </style>
+
+</resources>

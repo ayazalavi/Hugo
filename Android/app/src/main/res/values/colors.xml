@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="grayText">#80788c</color>
+    <color name="purpleNavigationBar">#380a60</color>
+    <color name="purpleHomeTitle">#591a89</color>
+    <color name="purpleBrandTitle">#381c5c</color>
+    <color name="purpleProductTitle">#2e1048</color>
+    <color name="graySubtitle">#bfbbc5</color>
+    <color name="searchBarPlaceHolder">#a8babd</color>
+    <color name="grayBackGround">#fafafa</color>
+    <color name="buttonBorder">#eeebf5</color>
+    <color name="purpleFavrito">#833cb8</color>
+    <color name="transparent">#003cb800</color>
+</resources>

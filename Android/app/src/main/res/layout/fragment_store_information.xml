@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="store" type="com.hugo.viewmodels.Store"/>
+        <import type="android.text.Html" />
+    </data>
+    <RelativeLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/photo"
+            android:layout_height="160dp"
+            android:layout_width="match_parent"
+            android:src="@{store.photo}"
+            android:scaleType="centerCrop"
+            />
+
+        <Button
+            android:id="@+id/backButton"
+            android:background="@drawable/back_icon_top_bar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="10dp"
+            android:backgroundTint="@android:color/white"
+            android:onClick="goBack"
+            />
+
+        <Button
+            android:id="@+id/searchButton"
+            android:background="@drawable/icon_search"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="10dp"
+            android:backgroundTint="@android:color/white"
+            />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/card"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="2dp"
+            android:layout_marginBottom="2dp"
+            app:cardBackgroundColor="@color/transparent"
+            android:layout_below="@id/photo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="-30dp"
+            >
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_height="60dp"
+                android:layout_width="60dp"
+                android:src="@{store.icon}"
+                android:scaleType="centerCrop"
+                />
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/leftTitle"
+            android:gravity="left"
+            android:layout_below="@id/card"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="20dp">
+            <TextView
+                android:id="@+id/title"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@{store.name}"
+                android:textSize="24sp"
+                android:textColor="@color/purpleBrandTitle"
+                android:fontFamily="@font/gotham_bold"
+                android:layout_marginTop="5dp"
+                />
+            <TextView
+                android:id="@+id/categories"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@{store.categories}"
+                android:textSize="12sp"
+                android:textColor="@color/purpleNavigationBar"
+                android:fontFamily="@font/gotham_medium"
+                android:layout_marginBottom="10dp"
+                />
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/favrito"
+            android:layout_below="@id/card"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/favrito_button"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_gravity="left|center_vertical"
+            android:gravity="center"
+            android:text="@string/favrito"
+            android:textSize="9sp"
+            android:fontFamily="@font/gotham_medium"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/purpleFavrito"
+            android:drawableLeft="@drawable/icon_heart"
+            android:drawableTint="@android:color/white"
+            android:layout_margin="20dp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_below="@id/favrito"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="10dp">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/button1"
+                android:text=""
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:textAllCaps="false"
+                app:layout_constraintRight_toLeftOf="@id/button2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginRight="5dp"
+                android:gravity="center"
+                android:background="@drawable/store_button"
+                />
+
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/button2"
+                android:text=""
+                android:textAllCaps="false"
+                app:layout_constraintLeft_toRightOf="@id/button1"
+                app:layout_constraintRight_toLeftOf="@id/button3"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginRight="5dp"
+                android:gravity="center"
+                android:background="@drawable/store_button"
+                />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/button3"
+                android:text=""
+                android:textAllCaps="false"
+                android:gravity="center"
+                app:layout_constraintLeft_toRightOf="@id/button2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:background="@drawable/store_button"
+
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </RelativeLayout>
+
+</layout>

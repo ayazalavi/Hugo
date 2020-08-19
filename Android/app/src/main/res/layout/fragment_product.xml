@@ -1,0 +1,82 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="title" type="String"/>
+        <variable name="product1" type="com.hugo.viewmodels.Product"/>
+        <variable name="product2" type="com.hugo.viewmodels.Product"/>
+        <variable name="product3" type="com.hugo.viewmodels.Product"/>
+        <variable name="product4" type="com.hugo.viewmodels.Product"/>
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context="com.hugo.helpers.HugoList">
+
+        <!-- TODO: Update blank fragment layout -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{title}"
+            android:gravity="left"
+            style="@style/AppTheme.ListTitle"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/list_title"
+            android:padding="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/view_more"
+            style="@style/AppTheme.ViewMore"
+            android:layout_alignParentRight="true"
+            android:padding="10dp"
+            android:id="@+id/view_more"/>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view_more"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true">
+
+            <include layout="@layout/product_store_card" android:id="@+id/product1"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/product3"
+                app:layout_constraintRight_toLeftOf="@id/product2"
+                app:product="@{product1}"
+                />
+
+            <include layout="@layout/product_store_card" android:id="@+id/product2"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                app:layout_constraintLeft_toRightOf="@id/product1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/product4"
+                app:layout_constraintRight_toRightOf="parent"
+                app:product="@{product2}"
+                />
+
+            <include layout="@layout/product_store_card" android:id="@+id/product3"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/product1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/product4"
+                app:product="@{product3}"
+                />
+
+            <include layout="@layout/product_store_card" android:id="@+id/product4"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                app:layout_constraintLeft_toRightOf="@id/product3"
+                app:layout_constraintTop_toBottomOf="@id/product2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:product="@{product4}"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </RelativeLayout>
+</layout>

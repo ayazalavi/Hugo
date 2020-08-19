@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="search" type="com.hugo.viewmodels.SearchList"/>
+        <variable name="isTitle" type="boolean"/>
+        <variable name="title" type="String"/>
+        <import type="android.view.View"/>
+        <import type="com.hugo.R"/>
+    </data>
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{isTitle? View.VISIBLE : View.GONE}"
+            android:text="@{title}"
+            android:gravity="left"
+            style="@style/AppTheme.ListTitle"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/list_title"
+            android:padding="10dp"
+            android:clickable="true"/>
+
+        <RelativeLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{isTitle? View.GONE : View.VISIBLE}"
+            android:paddingTop="10dp" android:paddingLeft="10dp" android:paddingRight="10dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                app:cardCornerRadius="18dp"
+                android:layout_marginHorizontal="15dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:id="@+id/cardView"
+                android:elevation="4dp" android:shadowColor="#55000000" android:shadowRadius="5"
+                android:shadowDx="0" android:shadowDy="10" android:layout_margin="10dp">
+
+                <ImageView android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:src="@{search.photo}"
+                    android:scaleType="centerCrop"
+                    android:id="@+id/icon"/>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <LinearLayout android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/rightText"
+                android:layout_toRightOf="@id/cardView"
+                android:background="@color/transparent"
+                android:paddingVertical="2dp"
+                android:layout_centerVertical="true"
+                android:gravity="left">
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="@{search.title}"
+                    android:textSize="14sp"
+                    android:textColor="@color/purpleProductTitle"
+                    android:fontFamily="@font/gotham_medium"
+                    />
+                <TextView
+                    android:id="@+id/subtitle"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="@{search.subtitle}"
+                    android:textSize="10sp"
+                    android:textColor="@color/grayText"
+                    android:fontFamily="@font/gotham_book"
+
+                    />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</layout>

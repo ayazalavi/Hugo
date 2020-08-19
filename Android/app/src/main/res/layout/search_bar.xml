@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipChildren="false">
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/search_input"
+    android:padding="0dp"
+    android:layout_margin="10dp"
+    android:elevation="4dp" android:shadowColor="#55000000" android:shadowRadius="5"
+    android:shadowDx="0" android:shadowDy="10">
+    <EditText
+        android:id="@+id/search_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/search_input"
+        android:textAlignment="textStart"
+        android:gravity="start"
+        android:textColor="@color/purpleProductTitle" android:textSize="14sp"
+        android:fontFamily="@font/gotham_book"
+        android:hint="@string/search_hint"
+        android:drawableLeft="@drawable/icon_search" android:drawablePadding="10dp"
+        android:drawableTint="@color/purpleNavigationBar" />
+
+</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
