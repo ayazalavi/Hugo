@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>nav_bar</key>
+	<dict>
+		<key>style</key>
+		<string>GothamHTF-Bold,14,#38215C,1.08,#EFE0FF</string>
+		<key>text</key>
+		<string>DETALLE DE FACTURACIÓN</string>
+	</dict>
+	<key>payment_types</key>
+	<dict>
+		<key>text</key>
+		<string>VISA,MASTERCARD</string>
+	</dict>
+	<key>welcome_title_1</key>
+	<dict>
+		<key>style</key>
+		<string>GothamHTF-Bold,20,#38215C,22</string>
+		<key>text</key>
+		<string>Nos interesa que te encuentres bien.</string>
+	</dict>
+	<key>welcome_title_2</key>
+	<dict>
+		<key>style</key>
+		<string>GothamHTF-Bold,20,#38215C,22</string>
+		<key>text</key>
+		<string>Profesionales a tu alcance</string>
+	</dict>
+	<key>welcome_title_3</key>
+	<dict>
+		<key>style</key>
+		<string>GothamHTF-Bold,20,#38215C,22</string>
+		<key>text</key>
+		<string>Consultas médicas generales.</string>
+	</dict>
+	<key>welcome_message_1</key>
+	<dict>
+		<key>attributedStyle</key>
+		<string>GothamHTF-Ultra,4,4</string>
+		<key>style</key>
+		<string>GothamHTF-Book,13,#80788C,17</string>
+		<key>text</key>
+		<string>Con hugoMed powered by Aliv.io puedes consultar a nuestros médicos y estar cuidar de tu salud.</string>
+	</dict>
+	<key>welcome_message_2</key>
+	<dict>
+		<key>attributedStyle</key>
+		<string>GothamHTF-Ultra,3,4</string>
+		<key>style</key>
+		<string>GothamHTF-Book,13,#80788C,17</string>
+		<key>text</key>
+		<string>En hugoMed powered by Aliv.io te conectamos por medio de una videollamada con un profesional de la medicina.</string>
+	</dict>
+	<key>welcome_message_3</key>
+	<dict>
+		<key>attributedStyle</key>
+		<string>GothamHTF-Ultra,4,4</string>
+		<key>style</key>
+		<string>GothamHTF-Book,13,#80788C,17</string>
+		<key>text</key>
+		<string>Con hugoMed powered by Aliv.io puedes consultar temas de medicinas general, te recomendamos no utilizarla para emergencias o consultas especializadas.</string>
+	</dict>
+	<key>welcome_button</key>
+	<dict>
+		<key>style</key>
+		<string>GothamHTF-Bold,11,#FFFFFF,22,#582187</string>
+		<key>text</key>
+		<string>INGRESAR A HUGOMED</string>
+	</dict>
+	<key>welcome_sub_message_3</key>
+	<dict>
+		<key>attributedStyle</key>
+		<string>GothamHTF-Ultra,-22,0</string>
+		<key>style</key>
+		<string>GothamHTF-Book,11,#80788C,13</string>
+		<key>text</key>
+		<string>Al ingresar a nuestro servicio aceptas términos y condiciones</string>
+	</dict>
+	<key>doctors_collection_title</key>
+	<dict>
+		<key>style</key>
+		<string>GothamHTF-Bold,24,#591A89,27</string>
+		<key>text</key>
+		<string>Queremos ayudarte</string>
+	</dict>
+	<key>doctors_collection_subtitle</key>
+	<dict>
+		<key>style</key>
+		<string>GothamHTF-Medium,14,#591A89,15</string>
+		<key>text</key>
+		<string>¿Con quién deseas consultarte?</string>
+	</dict>
+	<key>doctors_collection_name</key>
+	<dict>
+		<key>style</key>
+		<string>GothamHTF-Bold,14,#2E1048,18</string>
+	</dict>
+	<key>doctors_collection_category</key>
+	<dict>
+		<key>style</key>
+		<string>GothamHTF-Book,9,#80788C,14</string>
+	</dict>
+	<key>doctors_collection_center</key>
+	<dict>
+		<key>style</key>
+		<string>GothamHTF-Medium,9,#591a89,3,#F9F9F9,#E2DDED,1</string>
+	</dict>
+	<key>doctors_collection_center_available</key>
+	<dict>
+		<key>attributedStyle</key>
+		<string>GothamHTF-Book,-6,0,7</string>
+		<key>style</key>
+		<string>GothamHTF-Bold,14,#80788C,15</string>
+	</dict>
+	<key>doctors_collection_button_connect</key>
+	<dict>
+		<key>style</key>
+		<string>GothamHTF-Medium,11,#591a89,0</string>
+		<key>text</key>
+		<string></string>
+	</dict>
+	<key>doctors_collection_button_online</key>
+	<dict>
+		<key>style</key>
+		<string>GothamHTF-Medium,9,#FFFFFF,12,#6ADBC4</string>
+		<key>text</key>
+		<string>Disponible</string>
+	</dict>
+	<key>doctors_collection_button_offline</key>
+	<dict>
+		<key>style</key>
+		<string>GothamHTF-Medium,9,#FFFFFF,12,#BCB8C2</string>
+		<key>text</key>
+		<string>En consulta</string>
+	</dict>
+	<key>popover_background</key>
+	<dict>
+		<key>style</key>
+		<string>,,,#FFFFFF,18</string>
+	</dict>
+	<key>popover_title</key>
+	<dict>
+		<key>style</key>
+		<string>GothamHTF-Bold,20,#38215C,22</string>
+	</dict>
+	<key>popover_subtitle</key>
+	<dict>
+		<key>style</key>
+		<string>GothamHTF-Book,13,#80788C,14</string>
+	</dict>
+	<key>alert_title</key>
+	<dict>
+		<key>style</key>
+		<string>GothamHTF-Bold,18,#38215C,22</string>
+	</dict>
+	<key>alert_description</key>
+	<dict>
+		<key>style</key>
+		<string>GothamHTF-Book,13,#80788C,14</string>
+	</dict>
+	<key>popover_main_button</key>
+	<dict>
+		<key>style</key>
+		<string>GothamHTF-Medium,11,#FFFFFF,14,#6ADBC4</string>
+	</dict>
+	<key>popover_subtitle_available_in</key>
+	<dict>
+		<key>attributedStyle</key>
+		<string>GothamHTF-Bold,14,0,15,#591A89</string>
+		<key>style</key>
+		<string>GothamHTF-Book,15,#80788C,17</string>
+	</dict>
+	<key>popover_description</key>
+	<dict>
+		<key>attributedStyle</key>
+		<string>GothamHTF-Ultra,25,4</string>
+		<key>style</key>
+		<string>GothamHTF-Book,11,#80788C,14,#F9F9F9</string>
+		<key>text</key>
+		<string>El valor del servicio de hugoMed powered by Aliv.io, es en concepto de la conexión brindada para una consulta médica genera con un profesional del rubro</string>
+	</dict>
+	<key>popover_card_text</key>
+	<dict>
+		<key>style</key>
+		<string>GothamHTF-Medium,13,#38215C,14</string>
+	</dict>
+	<key>popover_amount</key>
+	<dict>
+		<key>style</key>
+		<string>GothamHTF-Bold,24,#38215C,26</string>
+	</dict>
+	<key>short_popover_available</key>
+	<dict>
+		<key>attributedStyle</key>
+		<string>GothamHTF-Bold,20,0,16,#FFFFFF</string>
+		<key>style</key>
+		<string>GothamHTF-Book,9,#FFFFFF,10,#591A89</string>
+	</dict>
+	<key>short_popover_unavailable</key>
+	<dict>
+		<key>attributedStyle</key>
+		<string>GothamHTF-Bold,20,0,16,#2E1048</string>
+		<key>style</key>
+		<string>GothamHTF-Book,9,#2E1048,10,#C0BCC6</string>
+	</dict>
+	<key>short_popover_subtitle</key>
+	<dict>
+		<key>style</key>
+		<string>GothamHTF-Bold,16,#FFFFFF,14</string>
+	</dict>
+	<key>short_popover_button</key>
+	<dict>
+		<key>style</key>
+		<string>GothamHTF-Medium,11,#FFFFFF,12</string>
+	</dict>
+	<key>short_popover_unavailable_text</key>
+	<dict>
+		<key>style</key>
+		<string>GothamHTF-Medium,9,#2E1048,10</string>
+	</dict>
+	<key>faq_title</key>
+	<dict>
+		<key>style</key>
+		<string>GothamHTF-Book,14,#38215C,12,#591A89</string>
+	</dict>
+	<key>faq_description</key>
+	<dict>
+		<key>style</key>
+		<string>GothamHTF-Book,13,#38215C,12,#FFFFFF</string>
+	</dict>
+	<key>button_texts</key>
+	<dict>
+		<key>welcome_button</key>
+		<string>INGRESAR A HUGOMED</string>
+		<key>disponible</key>
+		<string>Disponible</string>
+		<key>login</key>
+		<string>Conectarme</string>
+		<key>request_consultation</key>
+		<string>Solicitar consulta</string>
+		<key>in_consulation</key>
+		<string>En consulta</string>
+		<key>available</key>
+		<string>Disponible ahora mismo</string>
+		<key>availabile_in</key>
+		<string>Disponible en</string>
+		<key>start_consultation</key>
+		<string>INICIAR CONSULTA</string>
+	</dict>
+	<key>texts</key>
+	<dict>
+		<key>New item</key>
+		<string></string>
+	</dict>
+	<key>colors</key>
+	<dict/>
+</dict>
+</plist>
