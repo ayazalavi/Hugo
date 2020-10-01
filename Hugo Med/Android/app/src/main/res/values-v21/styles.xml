@@ -1,0 +1,517 @@
+<!--suppress ALL -->
+<resources>
+    <!-- Base application theme. -->
+    <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="BaseAppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="BaseAppTheme.NoActionBar.Popover" parent="BaseAppTheme.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="colorPrimaryDark">@android:color/transparent</item>
+    </style>
+
+    <style name="nav_bar_purple" parent="BaseAppTheme">
+        <item name="android:fontFamily">@font/gothamhtfbold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:letterSpacing">0.1</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="app_main_title" parent="BaseAppTheme">
+        <item name="android:fontFamily">@font/gothamhtfbold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/purple</item>
+        <item name="android:lineHeight">22dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="app_main_desc" parent="BaseAppTheme">
+        <item name="android:fontFamily">@font/gothamhtfbook</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/dark_gray_2</item>
+        <item name="android:lineHeight">17dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="app_main_button" parent="BaseAppTheme">
+        <item name="android:fontFamily">@font/gothamhtfbold</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:lineHeight">14dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">0.3</item>
+    </style>
+
+    <style name="app_small_button" parent="BaseAppTheme">
+        <item name="android:fontFamily">@font/gothamhtfmedium</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:lineHeight">12dp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">1.73</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="app_arrow_button" parent="BaseAppTheme">
+        <item name="android:fontFamily">@font/gothamhtfmedium</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:lineHeight">12dp</item>
+    </style>
+
+    <style name="app_vsmall_button" parent="app_small_button">
+        <item name="android:textSize">9sp</item>
+        <item name="android:lineHeight">0dp</item>
+    </style>
+
+    <style name="purple_button_large" parent="app_main_button">
+        <item name="android:background">@drawable/purple_button_large</item>
+    </style>
+
+    <style name="purple_button_medium" parent="app_small_button">
+        <item name="android:background">@drawable/purple_button_small</item>
+        <item name="android:letterSpacing">0.3</item>
+    </style>
+
+    <style name="green_button_small" parent="app_vsmall_button">
+        <item name="android:background">@drawable/green_button_vsmall_</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:paddingBottom">5dp</item>
+    </style>
+
+    <style name="green_button_medium" parent="app_small_button">
+        <item name="android:background">@drawable/green_button_small</item>
+        <item name="android:letterSpacing">0.3</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="green_button_large" parent="app_main_button">
+        <item name="android:background">@drawable/green_button_large</item>
+        <item name="android:letterSpacing">0.1</item>
+    </style>
+
+    <style name="gray_button_vsmall" parent="green_button_small">
+        <item name="android:background">@drawable/gray_button_vsmall_</item>
+    </style>
+
+    <style name="gray_button_small" parent="green_button_medium">
+        <item name="android:background">@drawable/gray_button_small</item>
+    </style>
+
+    <style name="app_main_heading" parent="BaseAppTheme">
+        <item name="android:fontFamily">@font/gothamhtfbold</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/dark_pink</item>
+        <item name="android:lineHeight">27dp</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="app_main_subheading" parent="BaseAppTheme">
+        <item name="android:fontFamily">@font/gothamhtfmedium</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/dark_pink</item>
+        <item name="android:lineHeight">15dp</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="onboarding_desc_1_attr" parent="app_main_desc">
+        <item name="android:fontFamily">@font/gothamhtfultra</item>
+        <item name="location_1">4,4</item>
+    </style>
+
+    <style name="onboarding_desc_2_attr" parent="app_main_desc">
+        <item name="android:fontFamily">@font/gothamhtfultra</item>
+        <item name="location_1">3,4</item>
+    </style>
+    <style name="onboarding_desc_3_attr" parent="app_main_desc">
+        <item name="android:fontFamily">@font/gothamhtfultra</item>
+        <item name="location_1">4,4</item>
+    </style>
+
+
+    <style name="onboarding_terms" parent="BaseAppTheme">
+        <item name="android:fontFamily">@font/gothamhtfbook</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:lineHeight">13dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="onboarding_nav" parent="BaseAppTheme">
+        <item name="android:src">@drawable/onboarding_pager</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:layout_marginRight">5dp</item>
+    </style>
+
+    <style name="onboarding_terms_attr" parent="onboarding_terms">
+        <item name="android:fontFamily">@font/gothamhtfultra</item>
+        <item name="location_1">-22,0</item>
+    </style>
+
+    <style name="doctors_card" parent="BaseAppTheme">
+        <item name="android:layout_width">168dp</item>
+        <item name="android:layout_height">202dp</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="doctors_card_image" parent="BaseAppTheme">
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:layout_marginLeft">11dp</item>
+        <item name="cardCornerRadius">30dp</item>
+    </style>
+
+    <style name="doctors_card_details" parent="BaseAppTheme">
+        <item name="cardBackgroundColor">@android:color/white</item>
+        <item name="cardCornerRadius">6dp</item>
+        <item name="cardElevation">0dp</item>
+    </style>
+
+    <style name="doctors_card_name" parent="BaseAppTheme">
+        <item name="android:fontFamily">@font/gothamhtfbold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/ultra_dark_pink</item>
+        <item name="android:lineHeight">15dp</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:lines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="doctors_card_category" parent="BaseAppTheme">
+        <item name="android:fontFamily">@font/gothamhtfbook</item>
+        <item name="android:textSize">9sp</item>
+        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:lineHeight">10dp</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:layout_marginTop">2dp</item>
+    </style>
+
+    <style name="doctors_card_center_text" parent="BaseAppTheme">
+        <item name="android:fontFamily">@font/gothamhtfmedium</item>
+        <item name="android:textSize">9sp</item>
+        <item name="android:textColor">@color/dark_pink</item>
+        <item name="android:lineHeight">10dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_marginTop">14dp</item>
+    </style>
+
+    <style name="doctors_card_center_text_offline" parent="doctors_card_center_text">
+        <item name="android:textColor">@color/dark_gray</item>
+    </style>
+
+    <style name="doctors_card_center_text_offline_attr_1" parent="doctors_card_center_text_offline">
+        <item name="android:fontFamily">@font/gothamhtfbold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineHeight">15dp</item>
+        <item name="location_1">13,0</item>
+    </style>
+
+    <style name="doctors_card_center_text_offline_attr_2" parent="doctors_card_center_text_offline">
+        <item name="android:fontFamily">@font/gothamhtfbook</item>
+        <item name="android:textSize">7sp</item>
+        <item name="android:lineHeight">7dp</item>
+        <item name="location_1">0,0</item>
+    </style>
+
+    <style name="doctors_card_center_text_offline_attr_3" parent="doctors_card_center_text_offline">
+        <item name="android:textAlignment">center</item>
+        <item name="location_1">13,0</item>
+    </style>
+
+    <style name="doctor_button_connect" parent="app_arrow_button">
+        <item name="android:textColor">@color/dark_pink</item>
+    </style>
+
+    <style name="doctor_button_online" parent="doctor_button_connect">
+        <item name="android:background">@drawable/icon_circle_green_</item>
+        <item name="android:text">@string/conectarme</item>
+        <item name="android:layout_width">107dp</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:layout_marginHorizontal">8dp</item>
+    </style>
+
+    <style name="doctor_button_offline" parent="doctor_button_connect">
+        <item name="android:background">@drawable/icon_circle_gray_</item>
+        <item name="android:text">@string/consulta</item>
+        <item name="android:layout_width">137dp</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:layout_marginHorizontal">8dp</item>
+    </style>
+
+    <style name="doctor_button_green" parent="green_button_small">
+        <item name="android:text">@string/disponible</item>
+    </style>
+
+    <style name="doctor_button_gray" parent="gray_button_vsmall">
+        <item name="android:text">@string/enconsulta</item>
+    </style>
+
+
+    <style name="popover_Image" parent="BaseAppTheme">
+        <item name="cardCornerRadius">38dp</item>
+        <item name="android:layout_width">75dp</item>
+        <item name="android:layout_height">75dp</item>
+    </style>
+
+    <style name="alert_Image" parent="BaseAppTheme">
+        <item name="cardCornerRadius">30dp</item>
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">60dp</item>
+    </style>
+
+    <style name="alert_details" parent="BaseAppTheme">
+        <item name="cardCornerRadius">18dp</item>
+        <item name="android:layout_width">318dp</item>
+        <item name="android:layout_height">225dp</item>
+        <item name="cardBackgroundColor">@color/white</item>
+    </style>
+
+    <style name="popover" parent="BaseAppTheme">
+        <item name="cardCornerRadius">18dp</item>
+        <item name="cardBackgroundColor">@color/white</item>
+    </style>
+
+    <style name="popover_category" parent="app_main_desc">
+        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:lineHeight">14dp</item>
+    </style>
+
+    <style name="popover_disponible" parent="green_button_medium">
+        <item name="android:text">@string/disponsible_ahora</item>
+        <item name="android:letterSpacing">0.01</item>
+    </style>
+
+    <style name="popover_econsulta" parent="gray_button_small">
+        <item name="android:text">@string/enconsulta</item>
+        <item name="android:letterSpacing">0.01</item>
+    </style>
+
+    <style name="popover_subtitle_available_in" parent="BaseAppTheme">
+        <item name="android:fontFamily">@font/gothamhtfbook</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/dark_gray_2</item>
+        <item name="android:lineHeight">17dp</item>
+    </style>
+
+    <style name="popover_subtitle_available_in_attr" parent="popover_subtitle_available_in">
+        <item name="android:fontFamily">@font/gothamhtfbold</item>
+        <item name="location_1">14,0</item>
+        <item name="android:textColor">@color/ultra_dark_purple</item>
+    </style>
+
+    <style name="popover_disclaimer" parent="BaseAppTheme">
+        <item name="android:fontFamily">@font/gothamhtfbook</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/dark_gray_2</item>
+        <item name="android:lineHeight">14dp</item>
+        <item name="android:background">@color/light_gray</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="popover_disclaimer_background" parent="BaseAppTheme">
+        <item name="android:background">@color/light_gray</item>
+        <item name="android:paddingHorizontal">10dp</item>
+        <item name="android:paddingVertical">12dp</item>
+    </style>
+
+    <style name="popover_disclaimer_attr" parent="popover_disclaimer">
+        <item name="android:fontFamily">@font/gothamhtfultra</item>
+        <item name="location_1">25,4</item>
+    </style>
+
+    <style name="popover_payment" parent="BaseAppTheme">
+        <item name="android:fontFamily">@font/gothamhtfmedium</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/purple</item>
+        <item name="android:lineHeight">14dp</item>
+        <item name="android:background">@drawable/visa</item>
+    </style>
+
+    <style name="popover_amount" parent="BaseAppTheme">
+        <item name="android:fontFamily">@font/gothamhtfbold</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/ultra_purple</item>
+        <item name="android:lineHeight">26dp</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="cancel_button" parent="app_main_button">
+        <item name="android:background">@drawable/white_button_large</item>
+        <item name="android:textColor">@color/dark_gray</item>
+    </style>
+
+    <style name="alert_title" parent="app_main_title">
+        <item name="android:textSize">18sp</item>
+        <item name="android:lineHeight">20dp</item>
+    </style>
+
+    <style name="faq" parent="BaseAppTheme">
+        <item name="cardBackgroundColor">@android:color/white</item>
+        <item name="cardCornerRadius">6dp</item>
+
+    </style>
+
+    <style name="faq_detail" parent="BaseAppTheme">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="faq_selected" parent="faq">
+        <item name="cardBackgroundColor">@color/dark_pink</item>
+    </style>
+
+    <style name="faq_title" parent="BaseAppTheme">
+        <item name="android:fontFamily">@font/gothamhtfbook</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/purple</item>
+        <item name="android:lineHeight">17dp</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textAlignment">viewStart</item>
+    </style>
+
+    <style name="faq_title_selected" parent="faq_title">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="faq_desc" parent="faq_title">
+        <item name="android:textSize">13sp</item>
+        <item name="android:lineHeight">20dp</item>
+    </style>
+
+    <style name="short_popover_available" parent="BaseAppTheme">
+        <item name="cardCornerRadius">9dp</item>
+        <item name="cardBackgroundColor">@color/dark_pink</item>
+    </style>
+
+    <style name="short_popover_unavailable" parent="BaseAppTheme">
+        <item name="cardCornerRadius">9dp</item>
+        <item name="cardBackgroundColor">@color/ultra_gray</item>
+    </style>
+
+    <style name="short_popover_Image" parent="BaseAppTheme">
+        <item name="cardCornerRadius">27dp</item>
+        <item name="android:layout_width">54dp</item>
+        <item name="android:layout_height">54dp</item>
+    </style>
+
+    <style name="short_popover_available_title" parent="BaseAppTheme">
+        <item name="android:fontFamily">@font/gothamhtfbook</item>
+        <item name="android:textSize">9sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:lineHeight">10dp</item>
+    </style>
+
+    <style name="short_popover_available_subtitle" parent="BaseAppTheme">
+        <item name="android:fontFamily">@font/gothamhtfbold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:lineHeight">18dp</item>
+    </style>
+
+    <style name="short_popover_unavailable_title" parent="short_popover_available_title">
+        <item name="android:textColor">@color/ultra_dark_pink</item>
+    </style>
+
+    <style name="short_popover_unavailable_subtitle" parent="short_popover_available_subtitle">
+        <item name="android:textColor">@color/ultra_dark_pink</item>
+    </style>
+
+    <style name="app_arrow_button_entrar" parent="app_arrow_button">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:text">@string/entrar</item>
+        <item name="android:background">@drawable/icon_circle_</item>
+        <item name="android:layout_width">72dp</item>
+        <item name="android:textAlignment">viewStart</item>
+    </style>
+
+    <style name="short_popover_unavailable_text" parent="doctors_card_center_text">
+        <item name="android:textColor">@color/ultra_dark_pink</item>
+        <item name="android:textAlignment">viewEnd</item>
+    </style>
+
+    <style name="receipt" parent="BaseAppTheme">
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="cardCornerRadius">6dp</item>
+    </style>
+
+    <style name="receipt_titles" parent="BaseAppTheme">
+        <item name="android:fontFamily">@font/gothamhtfbold</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/dark_purple</item>
+        <item name="android:lineHeight">13dp</item>
+        <item name="android:letterSpacing">0.3</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="receipt_key" parent="BaseAppTheme">
+        <item name="android:fontFamily">@font/gothamhtfbook</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/light_purple</item>
+        <item name="android:lineHeight">14dp</item>
+    </style>
+
+    <style name="receipt_subtitle_attr" parent="receipt_key">
+        <item name="android:fontFamily">@font/gothamhtfultra</item>
+        <item name="location_1">-7,4</item>
+    </style>
+
+    <style name="receipt_value" parent="BaseAppTheme">
+        <item name="android:fontFamily">@font/gothamhtfbold</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/light_purple</item>
+        <item name="android:lineHeight">14dp</item>
+    </style>
+
+    <style name="receipt_value.service" parent="receipt_value">
+        <item name="android:fontFamily">@font/gothamhtflight</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="receipt_total" parent="receipt_key">
+        <item name="android:fontFamily">@font/gothamhtfbold</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:lineHeight">17dp</item>
+    </style>
+
+    <style name="receipt_amount_title" parent="popover_payment">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:lineHeight">14dp</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="receipt_amount" parent="BaseAppTheme">
+        <item name="android:fontFamily">@font/gothamhtfbook</item>
+        <item name="android:textSize">48sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:lineHeight">52dp</item>
+    </style>
+
+    <style name="receipt_amount_sub" parent="BaseAppTheme">
+        <item name="android:fontFamily">@font/gothamhtflight</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:lineHeight">14dp</item>
+    </style>
+
+</resources>

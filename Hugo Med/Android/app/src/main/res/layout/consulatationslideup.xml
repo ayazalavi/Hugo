@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="com.apps.client.juan.hugomed.R" />
+        <import type="android.view.View" />
+        <variable name="doctor" type="com.apps.client.juan.hugomed.data.entities.Doctor" />
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent">
+
+        <androidx.cardview.widget.CardView style="@style/popover_Image" android:layout_centerHorizontal="true"
+            android:layout_marginBottom="-37dp" android:id="@+id/photo" android:translationZ="1dp"
+            android:layout_above="@id/popover">
+            <ImageView style="@style/popover_Image" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@{doctor.picture}" android:scaleType="center" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView style="@style/popover"
+            android:layout_width="match_parent"  android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" android:id="@+id/popover" android:layout_marginBottom="-37dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:paddingTop="37dp" android:paddingBottom="71dp">
+                <TextView style="@style/app_main_title" android:text="@{doctor.name}" android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="16dp"/>
+                <TextView style="@style/popover_category" android:text="@{doctor.category}" android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="2dp"/>
+                <Button style="@style/popover_disponible" android:text="@string/disponsible_ahora"
+                    android:layout_gravity="center_horizontal" android:paddingBottom="3dp" android:layout_marginTop="15dp"
+                    android:visibility="@{doctor.isAvailable == true ? View.VISIBLE : View.GONE}" />
+                <Button style="@style/popover_econsulta" android:text="@string/enconsulta"
+                    android:layout_gravity="center_horizontal" android:paddingBottom="3dp" android:layout_marginTop="15dp"
+                    android:visibility="@{doctor.isAvailable == true ? View.GONE : View.VISIBLE}" />
+                <TextView style="@style/popover_subtitle_available_in" android:id="@+id/available_in"
+                    android:layout_gravity="center_horizontal"  android:layout_marginTop="5dp" android:layout_marginBottom="16dp" android:visibility="@{doctor.isAvailable == true ? View.GONE : View.VISIBLE}"  />
+
+                <TextView style="@style/popover_disclaimer" android:text="@string/consultation_slideup_center_text"
+                    android:layout_gravity="center_horizontal" android:layout_marginTop="14dp"
+                    android:layout_marginHorizontal="16dp" android:paddingHorizontal="10dp" android:paddingVertical="12dp" />
+
+                <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="21dp" android:orientation="horizontal" android:layout_marginTop="11dp">
+                    <Button style="@style/popover_payment" android:text="9876" android:textAlignment="center"
+                        android:paddingLeft="24dp" android:paddingTop="2dp"
+                        android:paddingBottom="3dp" android:gravity="center" android:layout_alignParentLeft="true" />
+                    <TextView style="@style/popover_amount" android:text='@{"$"+ String.format("%.2f", doctor.amount)}'
+                        android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+                </RelativeLayout>
+                <Button style="@style/purple_button_large" android:layout_width="match_parent" android:text="@{doctor.isAvailable == true ? @string/iniciar : @string/consulta}" android:textAlignment="center"
+                    android:layout_gravity="center_horizontal" android:layout_marginHorizontal="21dp"
+                    android:onClick="closePopover"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+</layout>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/onBoarding">
+
+    <activity
+        android:id="@+id/onBoarding"
+        android:name="com.apps.client.juan.hugomed.activities.OnBoarding"
+        android:label="onboarding"
+        tools:layout="@layout/onboarding" />
+    <activity
+        android:id="@+id/doctorsListing"
+        android:name="com.apps.client.juan.hugomed.activities.DoctorsListing"
+        android:label="DoctorsListing" />
+    <activity
+        android:id="@+id/FAQListing"
+        android:name="com.apps.client.juan.hugomed.activities.FAQListing"
+        android:label="FAQListing" />
+    <activity
+        android:id="@+id/consultationSlideup"
+        android:name="com.apps.client.juan.hugomed.activities.ConsultationSlideup"
+        android:label="ConsultationSlideup" />
+</navigation>

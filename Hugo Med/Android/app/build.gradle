@@ -1,0 +1,70 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        applicationId "com.apps.client.juan.hugomed"
+        minSdkVersion 16
+        targetSdkVersion 29
+        versionCode 1
+        versionName "0.001"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildFeatures {
+        viewBinding true
+        dataBinding true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    // variables
+    def lifecycle_version = "2.2.0"
+    def arch_version = "2.1.0"
+    def room_version = "2.2.5"
+    def fragment_version = "1.2.5"
+    def work_version = "2.4.0"
+    def nav_version = "2.3.0"
+    def materialVersion = '1.0.0'
+
+    // Java implementations
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    // Libraries
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation "com.google.android.material:material:$materialVersion"
+    implementation "androidx.fragment:fragment:$fragment_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+    implementation "androidx.coordinatorlayout:coordinatorlayout:1.1.0"
+    implementation "androidx.constraintlayout:constraintlayout:2.0.0"
+    implementation "androidx.cardview:cardview:1.0.0"
+    implementation "androidx.gridlayout:gridlayout:1.0.0"
+    implementation "androidx.work:work-runtime:$work_version"
+    implementation "androidx.navigation:navigation-fragment:$nav_version"
+    implementation "androidx.navigation:navigation-ui:$nav_version"
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
+    implementation "androidx.annotation:annotation:1.1.0"
+
+    // Annotation Processors
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+}

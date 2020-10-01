@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+    <data>
+        <variable name="data" type="com.apps.client.juan.hugomed.data.entities.FAQ" />
+        <variable name="showDetails" type="boolean"  />
+        <import type="android.view.View" />
+    </data>
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+    <androidx.cardview.widget.CardView  android:layout_width="match_parent" android:id="@+id/questionbox"
+        style="@style/faq" android:layout_marginVertical="6dp" app:cardBackgroundColor="@{showDetails == true ? @color/dark_pink : @color/white}">
+
+        <LinearLayout android:orientation="horizontal"
+            android:layout_width="match_parent" android:weightSum="6"
+            android:layout_height="match_parent" android:paddingHorizontal="19dp" android:paddingVertical="16dp">
+
+            <TextView style="@style/faq_title" android:textColor="@{showDetails == true ? @color/white : @color/purple}"
+                android:layout_gravity="center" android:layout_weight="5" android:text="@{data.question}" />
+
+            <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1" />
+
+            <ImageButton android:background="@android:color/transparent" android:src="@{showDetails == true ? @drawable/btn_volver : @drawable/purple_arrow_down}" android:id="@+id/arrow"
+                android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center"
+                android:paddingHorizontal="5dp"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+    <LinearLayout android:orientation="horizontal" android:layout_below="@id/questionbox" android:layout_height="wrap_content"
+        style="@style/faq_detail" android:layout_width="match_parent" android:id="@+id/details"
+        android:visibility="@{showDetails? View.VISIBLE: View.GONE}" android:paddingHorizontal="19dp" android:paddingVertical="17dp">
+        <TextView style="@style/faq_desc" android:text="@{data.answer}" />
+    </LinearLayout>
+    </RelativeLayout>
+</layout>

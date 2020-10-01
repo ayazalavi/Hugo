@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Hugo Med</string>
+    <string name="onboard_title_1">Nos interesa que\nte encuentres bien.</string>
+    <string name="onboard_title_2">Profesionales a tu alcance</string>
+    <string name="onboard_title_3">Consultas médicas generales.</string>
+    <string name="onboard_desc_1">Con hugoMed powered by Aliv.io puedes consultar a nuestros médicos y estar cuidar de tu salud.</string>
+    <string name="onboard_desc_2">En hugoMed powered by Aliv.io te conectamos por medio de una videollamada con un profesional de la medicina.</string>
+    <string name="onboard_desc_3">Con hugoMed powered by Aliv.io puedes consultar temas de medicinas general, te recomendamos no utilizarla para emergencias o consultas especializadas.</string>
+    <string name="onboard_terms">Al ingresar a nuestro servicio aceptas términos y condiciones</string>
+    <string name="onboard_button">INGRESAR A HUGOMED</string>
+    <string name="doctors_listing_title">Queremos ayudarte</string>
+    <string name="doctors_listing_subtitle">¿Con quién deseas consultarte?</string>
+    <string name="disponible">Disponible</string>
+    <string name="enconsulta">En consulta</string>
+    <string name="conectarme">Conectarme</string>
+    <string name="consulta">Solicitar consulta</string>
+    <string name="disponsible_ahora">Disponible ahora mismo</string>
+    <plurals name="disponsible_en">
+        <item quantity="one">Disponible en %d min\naprox.</item>
+        <item quantity="other">Disponible en %d mins\naprox.</item>
+    </plurals>
+    <plurals name="disponsible_en_popover">
+        <item quantity="one">Disponible en %d min apróx.</item>
+        <item quantity="other">Disponible en %d mins apróx.</item>
+    </plurals>
+
+    <string name="iniciar">iniciar consulta</string>
+    <string name="consultation_slideup_center_text">El valor del servicio de hugoMed powered by Aliv.io, es en concepto de la conexión brindada para una consulta médica genera con un profesional del rubro</string>
+    <string name="entrar">Entrar</string>
+    <string name="faqs_title">Preguntas frecuentes</string>
+    <string name="consulta_en">Consulta en progreso</string>
+    <string name="consulta_solicitada">Consulta solicitada</string>
+    <string name="notify_when_ready">Te avisaremos cuando\ntodo este listo.</string>
+    <string name="start_consultation_title">Inicia tu cuadro médico</string>
+    <string name="start_consultation_desc">Al iniciar con nuestro servicio, compartiremos tus datos de nombre y correo electrónico a nuestro partner médico, para crear un historial médico y darte un mejor en cada consulta.</string>
+    <string name="estoy">estoy de acuerdo</string>
+    <string name="cancelar">cancelar solicitud</string>
+    <string name="cuando">Cuando solicites una consulta, nosotros te notificaremos a tu celular el momento en que nuestro médico se encuentre disponible para tu consulta.</string>
+    <string name="settings_title">Estamos a punto de comenzar</string>
+    <string name="settings_subtitle">Configura tu opciones de inicio</string>
+    <string name="settings_iniciar">iniciar</string>
+    <string name="receipt_nav_title">Detalle de facturación</string>
+    <string name="haz">Haz pagado</string>
+    <string name="en_hugo">en hugoMed</string>
+    <string name="nota">NOTA DE TRANSACCIÓN</string>
+    <string name="uso">Uso de servicios en hugoMed</string>
+    <string name="detalle">DETALLE de transacción</string>
+    <string name="receipt_id">ID de transación</string>
+    <string name="receipt_time">Fecha y hora</string>
+    <string name="receipt_service">Servicio</string>
+    <string name="receipt_payment">Tarjeta debitada</string>
+    <string name="comission">Comisión por servicio</string>
+    <string name="total">Total</string>
+</resources>

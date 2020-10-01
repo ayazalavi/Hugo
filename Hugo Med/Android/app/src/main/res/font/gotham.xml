@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android">
+    <font android:font="@font/gothamhtfbold" android:fontStyle="normal" />
+<!--    <font android:font="@font/gothamhtfultra" />-->
+<!--    <font android:font="@font/gothamhtflight" />-->
+<!--    <font android:font="@font/gothamhtfbook" />-->
+<!--    <font android:font="@font/gothamhtfmedium" />-->
+<!--    <font android:font="@font/gothamhtfblack" />-->
+<!--    <font android:font="@font/gothamhtfxlight" />-->
+</font-family>

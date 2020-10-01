@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+
+    <androidx.cardview.widget.CardView style="@style/alert_Image" android:layout_centerHorizontal="true"
+        android:layout_marginBottom="-30dp" android:id="@+id/photo" android:translationZ="1dp"
+        android:layout_above="@id/popover">
+        <ImageView style="@style/alert_Image" android:src="@drawable/icon_appointment" android:scaleType="center" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView style="@style/alert_details"
+        android:layout_centerInParent="true" android:id="@+id/popover">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+            android:paddingTop="37dp">
+            <TextView style="@style/alert_title" android:text="@string/consulta" android:layout_gravity="center_horizontal" />
+            <TextView style="@style/app_main_desc" android:text="@string/cuando" android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp" android:layout_marginHorizontal="17dp"
+                />
+            <Button style="@style/purple_button_medium" android:layout_width="match_parent" android:layout_marginHorizontal="28dp"
+                android:onClick="closePopover" android:text="@string/estoy" android:layout_marginTop="24dp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>
