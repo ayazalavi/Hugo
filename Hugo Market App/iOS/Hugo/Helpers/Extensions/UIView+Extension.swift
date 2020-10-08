@@ -79,6 +79,22 @@ extension UIButton {
         return backButton
     }
     
+    static func searchButton (color: UIColor, selector: Selector, target: Any, size: CGSize) -> UIButton {
+        let backButton = UIButton(type: .custom)
+        backButton.frame = .zero
+        backButton.setImage(UIImage(named: "icon_search")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        backButton.setImage(UIImage(named: "icon_search")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
+        backButton.setImage(UIImage(named: "icon_search")?.withRenderingMode(.alwaysTemplate), for: .selected)
+        backButton.imageEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        backButton.addTarget(target, action: selector, for: .touchUpInside)
+        backButton.imageView?.tintColor = color
+        NSLayoutConstraint.activate([
+            backButton.widthAnchor.constraint(equalToConstant: size.width),
+            backButton.heightAnchor.constraint(equalToConstant: size.height)
+        ])
+        return backButton
+    }
+    
     static func closeButton (color: UIColor, selector: Selector, target: Any, size: CGSize) -> UIButton {
         let backButton = UIButton(type: .custom)
         backButton.frame = CGRect(origin: .zero, size:  size)

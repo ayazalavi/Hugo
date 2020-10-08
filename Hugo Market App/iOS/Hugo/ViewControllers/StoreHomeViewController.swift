@@ -23,6 +23,7 @@ class StoreHomeViewController: UIViewController {
         scrollview.addSubview(self.storeDetails)
         scrollview.addSubview(self.promotionCollectionView)
         scrollview.addSubview(menuCollectionView)
+        scrollview.delegate = self
         return scrollview
     }()
     
@@ -157,6 +158,7 @@ class StoreHomeViewController: UIViewController {
         let promotion = MenuCollectionView(frame: .zero, data: storeData)
         promotion.translatesAutoresizingMaskIntoConstraints = false
         promotion.delegate = self
+        promotion.backgroundColor = .white
         return promotion
     }()
     
@@ -165,6 +167,9 @@ class StoreHomeViewController: UIViewController {
         promotion.translatesAutoresizingMaskIntoConstraints = false
         return promotion
     }()
+    
+    var menuTopConstraint, productsTopConstraint: NSLayoutConstraint?
+    var menuCollectiontop: CGFloat?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -202,7 +207,12 @@ extension StoreHomeViewController: MenuDelegate {
     
     func setupLayout() {
         self.setNavBarVisibility(value: true)
+        let barButton1 = UIBarButtonItem(customView: UIButton.backButton(color: .purpleNavigationBar, selector: #selector(goBack), target: self, size: CGSize(width: 30, height: 30)))
+        let centerText = NSMutableAttributedString(string: data.name.uppercased(), attributes: [NSAttributedString.Key.font: UIFont.gothamBold16])
+        let barButton2 = UIBarButtonItem(customView: UIButton.searchButton(color: .purpleNavigationBar, selector: #selector(goBack), target: self, size: CGSize(width: 30, height: 30)))
+        self.setNavigationBar(leftBarButton: barButton1, centerText: centerText, rightBarButtons: [barButton2])
         view.addSubview(self.content)
+        
         for index in 0..<storeData.count {
             let promotion = StoreProductCollectionView(frame: .zero, data: productStoreData)
             promotion.title.text = storeData[index]["category"] as? String
@@ -212,11 +222,12 @@ extension StoreHomeViewController: MenuDelegate {
             switch index {
             case 0:
                 NSLayoutConstraint.activate([
-                    promotion.topAnchor.constraint(equalTo: menuCollectionView.bottomAnchor, constant: 20),
                     promotion.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
                     promotion.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -10),
                     promotion.heightAnchor.constraint(equalToConstant:  290)
                 ])
+                productsTopConstraint = promotion.topAnchor.constraint(equalTo: menuCollectionView.bottomAnchor, constant: 20)
+                productsTopConstraint?.isActive = true
             default:
                 NSLayoutConstraint.activate([
                     promotion.topAnchor.constraint(equalTo: storeCollection[index-1].bottomAnchor, constant: 20),
@@ -271,14 +282,91 @@ extension StoreHomeViewController: MenuDelegate {
             promotionCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             promotionCollectionView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -10),
             promotionCollectionView.heightAnchor.constraint(equalToConstant: 220),
-            menuCollectionView.topAnchor.constraint(equalTo: promotionCollectionView.bottomAnchor, constant: 20),
             menuCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             menuCollectionView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -10),
             menuCollectionView.heightAnchor.constraint(equalToConstant: 50)//CGFloat(storeData.count * 250 + (storeData.count - 1)*20))
         ])
+        
+        menuTopConstraint = menuCollectionView.topAnchor.constraint(equalTo: promotionCollectionView.bottomAnchor, constant: 20)
+        menuTopConstraint?.isActive = true
+        self.content.bringSubviewToFront(self.menuCollectionView)
+        menuCollectiontop = self.menuCollectionView.frame.origin.y
     }
 
 }
+
+extension StoreHomeViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard let menuCollectiontop = menuCollectiontop, menuCollectiontop > 0 else {
+            self.menuCollectiontop = self.menuCollectionView.frame.origin.y
+            return
+        }
+        let statusBarSize = UIApplication.shared.statusBarFrame.size
+        let statusBarHeight = Swift.min(statusBarSize.width, statusBarSize.height)
+        print(scrollView.contentOffset.y + statusBarHeight, menuCollectiontop + statusBarHeight, statusBarSize, self.view.safeAreaInsets.top)
+        if scrollView.contentOffset.y > 280 {
+            if let hidden = self.navigationController?.navigationBar.isHidden, hidden {
+                self.navigationController?.setNavigationBarHidden(false, animated: true)
+            }
+        }
+        else {
+            if let hidden = self.navigationController?.navigationBar.isHidden, !hidden {
+                self.navigationController?.setNavigationBarHidden(true, animated: true)
+            }
+        }
+        
+        if scrollView.contentOffset.y + statusBarHeight > menuCollectiontop + statusBarHeight {
+            for (index, store) in self.storeCollection.enumerated() {
+                if store.frame.origin.y > self.content.contentOffset.y {
+                    self.menuCollectionView.collectionView.visibleCells.forEach { (cell) in
+                        guard let cell_ = cell as? StoreMenuCell else {
+                            return
+                        }
+                        cell_.makeItemSelected(false)
+                        cell_.category.isSelected = false
+                    }
+                    self.menuCollectionView.collectionView.selectItem(at: IndexPath(row: index, section: 0), animated: false, scrollPosition: .left)
+                    let cell = self.menuCollectionView.collectionView.cellForItem(at: IndexPath(row: index, section: 0)) as! StoreMenuCell
+                    cell.makeItemSelected(true)
+                    cell.category.isSelected = true
+                    break;
+                }
+            }
+           // print(self.menuCollectiontop ?? 0 + self.menuCollectionView.frame.size.height, self.content.contentOffset)
+            if let topC = menuTopConstraint?.constant, topC > 0 {
+                menuTopConstraint?.isActive = false
+                menuTopConstraint = menuCollectionView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor)
+                menuTopConstraint?.isActive = true
+                productsTopConstraint?.isActive = false
+                productsTopConstraint = self.storeCollection[0].topAnchor.constraint(equalTo: promotionCollectionView.bottomAnchor, constant: 20+menuCollectionView.frame.size.height)
+                productsTopConstraint?.isActive = true
+                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseIn) {
+                    self.view.layoutIfNeeded()
+                } completion: { (bool) in
+                    
+                }
+            }
+        }
+        else {
+           // print("I am here 1")
+            if let topC = menuTopConstraint?.constant, topC == 0 {
+              //  print("I am here 2")
+                menuTopConstraint?.isActive = false
+                menuTopConstraint = menuCollectionView.topAnchor.constraint(equalTo: promotionCollectionView.bottomAnchor, constant: 20)
+                menuTopConstraint?.isActive = true
+                productsTopConstraint?.isActive = false
+                productsTopConstraint = self.storeCollection[0].topAnchor.constraint(equalTo: menuCollectionView.bottomAnchor, constant: 20)
+                productsTopConstraint?.isActive = true
+                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseIn) {
+                    self.view.layoutIfNeeded()
+                } completion: { (bool) in
+                    
+                }
+            }
+        }
+    }
+}
+
 
 class PromotionCollectionView: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
