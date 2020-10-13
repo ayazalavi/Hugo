@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable name="store" type="com.hugo.viewmodels.Store"/>
         <import type="android.text.Html" />
     </data>
+
     <RelativeLayout android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <ImageView
             android:id="@+id/photo"
             android:layout_height="160dp"
@@ -163,6 +166,6 @@
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </RelativeLayout>
+            </RelativeLayout>
 
 </layout>
