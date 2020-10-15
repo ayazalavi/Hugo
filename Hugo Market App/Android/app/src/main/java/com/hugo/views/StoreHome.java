@@ -89,12 +89,12 @@ public class StoreHome extends AppCompatActivity {
         scrollListner = new ViewTreeObserver.OnScrollChangedListener() {
             @Override
             public void onScrollChanged() {
-               int scrollY = activityStoreBinding.scrollview.getScrollY();
+               final int scrollY = activityStoreBinding.scrollview.getScrollY();
                 Log.v("scroll", scrollY+"");
                 activityStoreBinding.navTitle.setText(model.getStore().getValue().name);
                 TabLayout tabLayout = activityStoreBinding.storeScrollview.getChildAt(2).findViewById(R.id.tab_layout);
-                float categoriesy = activityStoreBinding.storeScrollview.getChildAt(2).getY();
-                float categoriesh = tabLayout.getMeasuredHeight();
+                final float categoriesy = activityStoreBinding.storeScrollview.getChildAt(2).getY();
+                final float categoriesh = tabLayout.getMeasuredHeight();
                 float hugoh = ((LinearLayout)findViewById(R.id.pager)).getChildAt(0).getMeasuredHeight();
                 int someIndex = (int) Math.ceil((activityStoreBinding.scrollview.getScrollY() - categoriesy)/hugoh);
                 Log.v("tab-1", someIndex+"");
@@ -111,45 +111,51 @@ public class StoreHome extends AppCompatActivity {
                      tabLayout.setTag("select");
                      tabLayout.selectTab(tab, true);
                 }
-
-                if (activityStoreBinding.scrollview.getScrollY() > categoriesy - categoriesh  && activityStoreBinding.tabLayout2.getVisibility() == View.GONE) {
-                    activityStoreBinding.tabLayout2.setVisibility(View.VISIBLE);
-                }
-                else if(activityStoreBinding.scrollview.getScrollY() < categoriesy - categoriesh && activityStoreBinding.tabLayout2.getVisibility() == View.VISIBLE){
-                    activityStoreBinding.tabLayout2.setVisibility(View.GONE);
-                }
-
-
-                if (scrollY > 260 && activityStoreBinding.myToolbar.getVisibility() == View.GONE) {
-                    Log.v("scroll1", activityStoreBinding.myToolbar.getHeight()+"");
-                    Log.v("scroll1", activityStoreBinding.myToolbar.getMeasuredHeight()+"");
-                    activityStoreBinding.myToolbar.setVisibility(View.VISIBLE);
-                    TranslateAnimation animate = new TranslateAnimation(
-                            0,                 // fromXDelta
-                            0,                 // toXDelta
-                            -56,  // fromYDelta
-                            0);                // toYDelta
-                    animate.setDuration(200);
-                    animate.setFillAfter(true);
-                    activityStoreBinding.myToolbar.startAnimation(animate);
-                }
-                else if (scrollY < 260 && activityStoreBinding.myToolbar.getVisibility() == View.VISIBLE) {
-                    TranslateAnimation animate = new TranslateAnimation(
-                            0,                 // fromXDelta
-                            0,                 // toXDelta
-                            0,  // fromYDelta
-                            -56);                // toYDelta
-                    animate.setDuration(200);
-                    animate.setFillAfter(true);
-                    activityStoreBinding.myToolbar.startAnimation(animate);
-                    new Timer().schedule(new TimerTask() {
-                        @Override
-                        public void run() {
-                            activityStoreBinding.myToolbar.setVisibility(View.GONE);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (activityStoreBinding.scrollview.getScrollY() > categoriesy - categoriesh  && activityStoreBinding.tabLayout2.getVisibility() == View.GONE) {
+                            activityStoreBinding.tabLayout2.setVisibility(View.VISIBLE);
                         }
-                    }, 200);
+                        else if(activityStoreBinding.scrollview.getScrollY() < categoriesy - categoriesh && activityStoreBinding.tabLayout2.getVisibility() == View.VISIBLE){
+                            activityStoreBinding.tabLayout2.setVisibility(View.GONE);
+                        }
 
-                }
+
+                        if (scrollY > 260 && activityStoreBinding.myToolbar.getVisibility() == View.GONE) {
+                            Log.v("scroll1", activityStoreBinding.myToolbar.getHeight()+"");
+                            Log.v("scroll1", activityStoreBinding.myToolbar.getMeasuredHeight()+"");
+                            activityStoreBinding.myToolbar.setVisibility(View.VISIBLE);
+                            TranslateAnimation animate = new TranslateAnimation(
+                                    0,                 // fromXDelta
+                                    0,                 // toXDelta
+                                    -56,  // fromYDelta
+                                    0);                // toYDelta
+                            animate.setDuration(200);
+                            animate.setFillAfter(true);
+                            activityStoreBinding.myToolbar.startAnimation(animate);
+                        }
+                        else if (scrollY < 260 && activityStoreBinding.myToolbar.getVisibility() == View.VISIBLE) {
+                            TranslateAnimation animate = new TranslateAnimation(
+                                    0,                 // fromXDelta
+                                    0,                 // toXDelta
+                                    0,  // fromYDelta
+                                    -56);                // toYDelta
+                            animate.setDuration(200);
+                            animate.setFillAfter(true);
+                            activityStoreBinding.myToolbar.startAnimation(animate);
+                            new Timer().schedule(new TimerTask() {
+                                @Override
+                                public void run() {
+                                    activityStoreBinding.myToolbar.setVisibility(View.GONE);
+
+                                }
+                            }, 200);
+
+                        }
+                    }
+                });
+
             }
         };
         
