@@ -7,6 +7,8 @@ target 'Hugo Med' do
 
   # Pods for Hugo Med
   pod 'IGListKit', '~> 4.0.0'
+  pod 'Alamofire', '~> 5.2'
+  pod 'OpenTok'
 
   target 'Hugo MedTests' do
     inherit! :search_paths

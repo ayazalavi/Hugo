@@ -107,36 +107,38 @@ class APIRequests {
         if timer == nil {
             seconds = 0
         }
-        AF.request(url.url(), headers: headers)
-            .redirect(using: redirector(.get)).responseJSON(queue: DispatchQueue.global(qos: .background)) {[self] response in
-            // print(response)
-            DispatchQueue.main.async {
-                if response.error != nil {
-                    delegate?.error(error: response.error)
-                }
-                else {
-                    guard let responseData = response.data else {
-                        print("Unable to get response")
-                        return
+        DispatchQueue.global(qos: .background).async {
+            AF.request(url.url(), headers: self.headers)
+                .redirect(using: self.redirector(.get)).responseJSON {[self] response in
+                // print(response)
+                DispatchQueue.main.async {
+                    if response.error != nil {
+                        delegate?.error(error: response.error)
                     }
-                    do {
-                        try delegate?.success(response: responseData)
-                        try callback(responseData)
-                        if self.seconds > 0 && self.timer == nil {
-                            print("timer started")
-                            timer = Timer.scheduledTimer(withTimeInterval: Double(self.seconds), repeats: true) { timer in
-                                _ = self.fetch(url: url, callback)
-                            }
+                    else {
+                        guard let responseData = response.data else {
+                            print("Unable to get response")
+                            return
                         }
-                    } catch (AppErrors.PatientNotSet) {
-                        print("Unable to set user as a patient")
-                    } catch (AppErrors.AppointmentNotMade) {
-                        print("Unable to set appointment")
-                    }catch {
-                        print("Unexpected error: \(String(describing: response.error)).")
+                        do {
+                            try delegate?.success(response: responseData)
+                            try callback(responseData)
+                            if self.seconds > 0 && self.timer == nil {
+                                print("timer started")
+                                timer = Timer.scheduledTimer(withTimeInterval: Double(self.seconds), repeats: true) { timer in
+                                    _ = self.fetch(url: url, callback)
+                                }
+                            }
+                        } catch (AppErrors.PatientNotSet) {
+                            print("Unable to set user as a patient")
+                        } catch (AppErrors.AppointmentNotMade) {
+                            print("Unable to set appointment")
+                        }catch {
+                            print("Unexpected error: \(String(describing: response.error)).")
+                        }
                     }
+                    delegate?.completed()
                 }
-                delegate?.completed()
             }
         }
         return self

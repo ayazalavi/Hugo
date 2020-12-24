@@ -10,15 +10,15 @@ import Foundation
 
 
 var doctors: [DoctorCard] = [
-    DoctorCard(photo: "Avatarimage", name: "Carmen Beltrán", category: "Médico general", isAvailable: true, availableIn: 5),
-    DoctorCard(photo: "Avatar", name: "Lissette Flores", category: "Médico general", isAvailable: true, availableIn: 8),
-    DoctorCard(photo: "Avatarimage", name: "Carmen Beltrán", category: "Médico general", isAvailable: true, availableIn: 4),
-    DoctorCard(photo: "Avatar", name: "Lissette Flores", category: "Médico general", isAvailable: true, availableIn: 3),
-    DoctorCard(photo: "Avatarimage", name: "Carmen Beltrán", category: "Médico general", isAvailable: true, availableIn: 1),
-    DoctorCard(photo: "Avatar", name: "Lissette Flores", category: "Médico general", isAvailable: false, availableIn: 10),
-    DoctorCard(photo: "Avatarimage", name: "Carmen Beltrán", category: "Médico general", isAvailable: false, availableIn: 30),
-    DoctorCard(photo: "Avatar", name: "Lissette Flores", category: "Médico general", isAvailable: false, availableIn: 15),
-    DoctorCard(photo: "Avatarimage", name: "Carmen Beltrán", category: "Médico general", isAvailable: false, availableIn: 5),
+//    DoctorCard(photo: "Avatarimage", name: "Carmen Beltrán", category: "Médico general", isAvailable: true, availableIn: 5),
+//    DoctorCard(photo: "Avatar", name: "Lissette Flores", category: "Médico general", isAvailable: true, availableIn: 8),
+//    DoctorCard(photo: "Avatarimage", name: "Carmen Beltrán", category: "Médico general", isAvailable: true, availableIn: 4),
+//    DoctorCard(photo: "Avatar", name: "Lissette Flores", category: "Médico general", isAvailable: true, availableIn: 3),
+//    DoctorCard(photo: "Avatarimage", name: "Carmen Beltrán", category: "Médico general", isAvailable: true, availableIn: 1),
+//    DoctorCard(photo: "Avatar", name: "Lissette Flores", category: "Médico general", isAvailable: false, availableIn: 10),
+//    DoctorCard(photo: "Avatarimage", name: "Carmen Beltrán", category: "Médico general", isAvailable: false, availableIn: 30),
+//    DoctorCard(photo: "Avatar", name: "Lissette Flores", category: "Médico general", isAvailable: false, availableIn: 15),
+//    DoctorCard(photo: "Avatarimage", name: "Carmen Beltrán", category: "Médico general", isAvailable: false, availableIn: 5),
 ]
 
 var lastConsulationRequest: ConsulationStatus = .none

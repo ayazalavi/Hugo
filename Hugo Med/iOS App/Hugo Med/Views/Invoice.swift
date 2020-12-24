@@ -14,7 +14,11 @@ class Invoice: HugoMedUIViewController {
     // MARK: DATA
     let nav_bar: Content = String.scanFor(key: .nav_bar)
     let receipt: Receipt
-
+    var disconnected = false { didSet {
+        if disconnected {
+            OpenTok.current?.disconnect()
+        }        
+    }}
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
@@ -47,6 +51,7 @@ class Invoice: HugoMedUIViewController {
         view.addSubview(collectionView)
         adapter.collectionView = collectionView
         adapter.dataSource = self
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

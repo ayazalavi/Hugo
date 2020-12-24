@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import Alamofire
 
 class OnBoardingCollection: HugoMedUICollectionViewController {
     
     let cell_id = "boarding"
     
     var currentPage = 0
+    
     
     let content = [
         OnBoarding(photo: "onboarding-med01", title: String.scanFor(key: .welcome_title_1), description: String.scanFor(key: .welcome_message_1)),
@@ -100,12 +102,8 @@ class OnBoardingCollection: HugoMedUICollectionViewController {
         collectionView.bounces = false
         collectionView.register(OnBoardingCollectionCell.self, forCellWithReuseIdentifier: cell_id)
         
-        
-       // navigationItem.setBackButton(target: self, selector: #selector(gotoDoctorViewController))
-//        for family in UIFont.familyNames.sorted() {
-//            let names = UIFont.fontNames(forFamilyName: family)
-//            print("Family: \(family) Font names: \(names)")
-//        }
+        APIRequests.shared.delegate = self
+        _ = APIRequests.shared.fetch(url: MED_API_URL.GET_PATIENT_BY_ID(497))
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -139,9 +137,50 @@ class OnBoardingCollection: HugoMedUICollectionViewController {
    
 }
 
+extension OnBoardingCollection: NetworkStatus {
+    
+    func completed() {
+    }
+    
+    func success(response: Data) throws {
+//        guard let response = response else {
+//            throw AppErrors.NoResponse
+//        }
+        let decoder = JSONDecoder()
+        switch APIRequests.shared.current_api_url {
+            case .GET_PATIENT_BY_ID(_):
+                guard let patients = try? decoder.decode([Patient].self, from: response), patients.count > 0 else {
+                    throw AppErrors.PatientNotSet
+                }
+                AppData.shared.setPatient(patients[0])
+                if let country_id = AppData.shared.current_patient?.country_id {
+                    _ = APIRequests.shared.fetch(url: MED_API_URL.GET_COMPANY_CATALOG(country_id))
+                }
+            case .GET_COMPANY_CATALOG(_):
+                guard let companies = try? decoder.decode([Company].self, from: response), companies.count > 0 else {
+                    throw AppErrors.CompaniesNotFound
+                }
+                AppData.shared.setCompanies(companies)
+                print("\(String(describing: AppData.shared.microuniverse_company_id))")
+            default:
+                print("error")
+        }        
+    }
+    
+    func started() {
+        
+    }
+    
+    func progress(progress: Double) {
+        
+    }
+    
+    func error(error: AFError?) {
+        print("error: \(String(describing: error))")
+    }
+}
+
 extension OnBoardingCollection: UICollectionViewDelegateFlowLayout {
-    
-    
     
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         currentPage = indexPath.item
@@ -196,8 +235,6 @@ extension OnBoardingCollection {
         pageControl.updateImageViewAt(index: self.currentPage)
     }
     
-   
-    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         pageControl.updateImageViewAt(index: self.currentPage)
         coordinator.animate(alongsideTransition: { (_) in
@@ -215,7 +252,6 @@ extension OnBoardingCollection {
 
         }
     }
-    
 }
 
 class OnBoardingCollectionCell: UICollectionViewCell, NSLayoutManagerDelegate {

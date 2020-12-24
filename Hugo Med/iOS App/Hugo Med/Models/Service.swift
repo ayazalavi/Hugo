@@ -7,3 +7,12 @@
 //
 
 import Foundation
+
+struct Service: Codable {
+    let id: Int
+    let name: String
+    let description: String
+    let fee: String
+    let doctor: Int
+    let currency: Currency
+}

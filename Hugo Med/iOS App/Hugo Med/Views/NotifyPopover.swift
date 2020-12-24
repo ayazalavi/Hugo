@@ -8,11 +8,12 @@
 
 import Foundation
 import UIKit
+import Alamofire
 
 class NotifyPopover:  HugoMedUIViewController {
     
     // MARK: DATA
-    let consulation: EnterConsultation
+    var consulation: EnterConsultation
     
     var popoverHeight: CGFloat {
         return 63
@@ -46,55 +47,102 @@ class NotifyPopover:  HugoMedUIViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(recheckStatus))
         self.view.addGestureRecognizer(tap)
         print(consulation)
+        
+       
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.view.backgroundColor = UIColor(white: 0, alpha: 0)
+        guard OpenTok.current == nil else { return }
+        APIRequests.shared.delegate = self
+        APIRequests.shared.fetch(url: MED_API_URL.GET_DOCTOR_BY_ID(self.consulation.doctor.id)).every(seconds: 5)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        APIRequests.shared.stop()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        print(view.bounds)
-        self.content.frame = CGRect(x: 0, y: view.bounds.size.height - self.popoverHeight, width: view.bounds.size.width, height: self.popoverHeight+8)
-        self.doctorPhoto.frame = CGRect(x: 26, y: view.bounds.size.height - self.popoverHeight-8, width: 54, height: 54)
-        self.titleText.frame = CGRect(x: 94, y: 15, width: 150, height: 10)
-        self.subtitleText.frame = CGRect(x: 94, y: 25, width: 250, height: 18)
-        self.bottomButton.frame = CGRect(x: view.bounds.size.width - 72 - 18, y: 11, width: 72, height: 28)
-        self.unavailableText.frame = CGRect(x: view.bounds.size.width - 112 - 16, y: 11, width: 112, height: 35)
-        self.unavailableText.sizeToFit()
-    }
-    
-    @objc func startConsulation() {
-        self.dismiss(animated: true) {
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: ConsulationStatus.in_progress.rawValue), object: nil, userInfo: ["doctor": self.consulation.doctor])
-        }
+        // MARK: VIEWs
+        let content: UIView = {
+            let view_ = UIView(frame: .zero)
+            view_.layer.masksToBounds = true
+            view_.layer.cornerRadius = 9
+            view_.backgroundColor = self.contentStyle.getBackgroundColor()
+            view_.layer.shadowColor = UIColor.hexStringToUIColor(hex: "#80788C").cgColor
+            view_.layer.shadowOffset = CGSize(width: 0, height: -2)
+            view_.layer.shadowOpacity = 0.11            
+            return view_
+        }()
+
         
-    }
-    
-    @objc func recheckStatus(_ sender: UIGestureRecognizer) {
-        print("tapped")
-    }
-    
-    // MARK: VIEWs
-    lazy private var content: UIView = {
-        let view_ = UIView(frame: .zero)
-        view_.layer.masksToBounds = true
-        view_.layer.cornerRadius = 9
-        view_.backgroundColor = self.contentStyle.getBackgroundColor()
-        view_.layer.shadowColor = UIColor.hexStringToUIColor(hex: "#80788C").cgColor
-        view_.layer.shadowOffset = CGSize(width: 0, height: -2)
-        view_.layer.shadowOpacity = 0.11
-        self.view.addSubview(view_)
+        let titleText: UILabel  = {
+            let textView = UILabel.label()
+            textView.backgroundColor = .clear
+            textView.font = self.contentStyle.getFont()
+            textView.textColor = self.contentStyle.getTextColor()
+            textView.textAlignment = .left
+            textView.text = self.titleTextString
+            return textView
+        }()
+        
+        let subtitleText: UILabel  = {
+            let textView = UILabel.label()
+            textView.backgroundColor = .clear
+            textView.font = String.scanFor(key: .short_popover_subtitle).getFont()
+            textView.textColor = self.contentStyle.getTextColor()
+            textView.textAlignment = .left
+            textView.text = self.consulation.doctor.name
+            return textView
+        }()
+
+        let bottomButton: UIButton = {
+            let content = String.scanFor(key: .doctors_collection_button_connect)
+            let button = UIButton.customButton(text: NSAttributedString(string: "Entrar", attributes: [NSAttributedString.Key.font: content.getFont(), NSAttributedString.Key.foregroundColor: UIColor.white]), icon: #imageLiteral(resourceName: "white"), selector: #selector(startConsulation), target: self)
+            button.contentHorizontalAlignment = .left
+            button.contentVerticalAlignment = .center
+            button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 43, bottom: 0, right: 0)
+            button.titleEdgeInsets = UIEdgeInsets(top: 0, left: -28, bottom: 0, right: 0)
+            return button
+        }()
+        
+        let unavailableText: UITextView  = {
+            let textView = UITextView.textView()
+            let contentStyle = String.scanFor(key: .short_popover_unavailable_text)
+            textView.backgroundColor = .clear
+            textView.font = contentStyle.getFont()
+            textView.textColor = contentStyle.getTextColor()
+            textView.textAlignment = .right
+            textView.text = "Te avisaremos cuando \ntodo este listo."
+            return textView
+        }()
+        self.view.subviews.forEach{$0.removeFromSuperview()}
+        self.view.addSubview(content)
         self.view.addSubview(self.doctorPhoto)
-        view_.addSubview(self.titleText)
-        view_.addSubview(self.subtitleText)
-        view_.addSubview(self.isDoctorAvailable ? self.bottomButton : self.unavailableText)
-        return view_
-    }()
+        content.addSubview(titleText)
+        content.addSubview(subtitleText)
+        content.addSubview(isDoctorAvailable ? bottomButton : unavailableText)
+        print("notify view: ", view.bounds, self.view.subviews.count, content.subviews.count)
+        content.frame = CGRect(x: 0, y: view.bounds.size.height - self.popoverHeight, width: view.bounds.size.width, height: self.popoverHeight+8)
+        self.doctorPhoto.frame = CGRect(x: 26, y: view.bounds.size.height - self.popoverHeight-8, width: 54, height: 54)
+        titleText.frame = CGRect(x: 94, y: 15, width: 150, height: 10)
+        subtitleText.frame = CGRect(x: 94, y: 25, width: 250, height: 18)
+        bottomButton.frame = CGRect(x: view.bounds.size.width - 72 - 18, y: 11, width: 72, height: 28)
+        unavailableText.frame = CGRect(x: view.bounds.size.width - 112 - 16, y: 11, width: 112, height: 35)
+        unavailableText.sizeToFit()
+    }
     
-    lazy private var doctorPhoto: UIImageView = {
-        let imageView = UIImageView.photo(name: consulation.doctor.photo)
+    lazy var doctorPhoto: UIImageView = {
+        let imageView = UIImageView.photo()
+        AF.request("http://\(self.consulation.doctor.photo)").response (queue: DispatchQueue.global(qos: .background)) {[self] (response) in
+            guard let response = response.data else { return }
+            DispatchQueue.main.async {
+                imageView.image = UIImage(data: response)
+            }            
+        }
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 27
         imageView.layer.shadowColor = UIColor.hexStringToUIColor(hex: "#171121").withAlphaComponent(0.29).cgColor
@@ -102,44 +150,60 @@ class NotifyPopover:  HugoMedUIViewController {
         return imageView
     }()
     
-    lazy private var titleText: UILabel  = {
-        let textView = UILabel.label()
-        textView.backgroundColor = .clear
-        textView.font = self.contentStyle.getFont()
-        textView.textColor = self.contentStyle.getTextColor()
-        textView.textAlignment = .left
-        textView.text = self.titleTextString
-        return textView
-    }()
+    @objc func startConsulation() {
+        self.dismiss(animated: true) {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: ConsulationStatus.in_progress.rawValue), object: nil, userInfo: ["doctor": self.consulation.doctor, "restart": OpenTok.current != nil])
+        }
+    }
     
-    lazy private var subtitleText: UILabel  = {
-        let textView = UILabel.label()
-        textView.backgroundColor = .clear
-        textView.font = String.scanFor(key: .short_popover_subtitle).getFont()
-        textView.textColor = self.contentStyle.getTextColor()
-        textView.textAlignment = .left
-        textView.text = self.consulation.doctor.name
-        return textView
-    }()
+    @objc func recheckStatus(_ sender: UIGestureRecognizer) {
+        print("tapped")
+    }
+    
+}
 
-    public var bottomButton: UIButton = {
-        let content = String.scanFor(key: .doctors_collection_button_connect)
-        let button = UIButton.customButton(text: NSAttributedString(string: "Entrar", attributes: [NSAttributedString.Key.font: content.getFont(), NSAttributedString.Key.foregroundColor: UIColor.white]), icon: #imageLiteral(resourceName: "white"), selector: #selector(startConsulation), target: self)
-        button.contentHorizontalAlignment = .left
-        button.contentVerticalAlignment = .center
-        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 43, bottom: 0, right: 0)
-        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: -28, bottom: 0, right: 0)
-        return button
-    }()
+extension NotifyPopover: NetworkStatus {
+    func success(response: Data) throws {
+//        guard let response = response else {
+//            throw AppErrors.NoResponse
+//        }
+        let decoder = JSONDecoder()
+        switch APIRequests.shared.current_api_url {
+            case .GET_DOCTOR_BY_ID(_):
+                guard var doctor = try? decoder.decode(Doctor.self, from: response) else {
+                    throw AppErrors.DoctorsError
+                }
+                print("doctor: ", doctor)
+                let doc = AppData.shared.getDoctorCard(doctor: doctor)
+                AppData.shared.current_doctor = doc
+                self.consulation.doctor = doc
+                AppData.shared.checkNotification(doctor: doc, reschedule: true)                
+                
+//                Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { timer in
+//                    doctor.waiting_time.waiting = 0
+//                    self.consulation.doctor = AppData.shared.getDoctorCard(doctor: doctor)
+//                    self.view.setNeedsLayout()
+//                }
+            default:
+                print("error")
+        }
+    }
     
-    lazy private var unavailableText: UITextView  = {
-        let textView = UITextView.textView()
-        let contentStyle = String.scanFor(key: .short_popover_unavailable_text)
-        textView.backgroundColor = .clear
-        textView.font = contentStyle.getFont()
-        textView.textColor = contentStyle.getTextColor()
-        textView.textAlignment = .right
-        textView.text = "Te avisaremos cuando \ntodo este listo."
-        return textView
-    }()
+    func error(error: AFError?) {
+        print("error: \(String(describing: error))")
+    }
+    
+    func started() {
+        
+    }
+    
+    func progress(progress: Double) {
+        
+    }
+    
+    func completed() {
+        
+    }
+    
+    
 }

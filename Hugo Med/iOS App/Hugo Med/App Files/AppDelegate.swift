@@ -9,13 +9,14 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         window = UIWindow();
+        print("launching options \(launchOptions)")
         let collectionViewLayout = UICollectionViewFlowLayout()
         collectionViewLayout.scrollDirection = .horizontal
         collectionViewLayout.minimumLineSpacing = 0
@@ -29,6 +30,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         return true
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        print("local notification")
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

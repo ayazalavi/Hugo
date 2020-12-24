@@ -12,4 +12,9 @@ struct DoctorCard {
     let photo, name, category: String
     let isAvailable: Bool
     let availableIn: Int
+    let id: Int
+    
+    func getMinsAvailability () -> Int {
+        return Int(ceil(Double(self.availableIn)/60.0))
+    }
 }

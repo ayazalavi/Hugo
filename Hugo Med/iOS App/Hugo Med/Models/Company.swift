@@ -7,3 +7,19 @@
 //
 
 import Foundation
+
+struct Company: Codable {
+    let id: Int
+    let tag: Company_Tag
+    let country: Int
+    let countries: [Int]
+}
+
+struct Company_Tag: Codable {
+    let id: Int
+    let name: String
+    let description: String
+    let can_delete: Bool
+    let users_count: Int
+    let is_active: Bool
+}

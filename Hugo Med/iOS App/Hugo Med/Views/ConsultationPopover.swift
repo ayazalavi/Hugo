@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Alamofire
 
 class ConsultationPopover:  HugoMedUIViewController {
     
@@ -36,8 +37,8 @@ class ConsultationPopover:  HugoMedUIViewController {
     }
     
     // MARK: LIFE CYCLE METHODS, INITIALIZERS, ACTIONS AND EVENTS
-    init(doctor: DoctorCard) {
-        self.consulation = Consultation(doctor: doctor, payment: Payment(cards: [PaymentCard(type: "VISA", number: "1234")], amount: 10, comission: 10))
+    init(doctor: DoctorCard, service: Service) {
+        self.consulation = Consultation(doctor: doctor, payment: Payment(cards: [PaymentCard(type: "VISA", number: "1234")], amount: service.fee.floatValue, comission: service.fee.floatValue * 0.1))
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -72,7 +73,7 @@ class ConsultationPopover:  HugoMedUIViewController {
         y = 37+16
         self.name.frame = CGRect(x: 16, y: y, width: contentTextWidth, height: 22)
         y += 22+2
-        self.category.frame = CGRect(x: 16, y: y, width: contentTextWidth, height: 14)
+        self.category.frame = CGRect(x: 16, y: y, width: contentTextWidth, height: 30)
         y += 14+20
         let buttonWidth: CGFloat  = self.isDoctorAvailable ? 159.0 : 111.0
         self.availabilityButton.frame = CGRect(x:( content.bounds.size.width/2 - buttonWidth/2), y: y, width: buttonWidth, height: 28)
@@ -143,7 +144,13 @@ class ConsultationPopover:  HugoMedUIViewController {
     }()
     
     lazy private var doctorPhoto: UIImageView = {
-        let imageView = UIImageView.photo(name: consulation.doctor.photo)
+        let imageView = UIImageView.photo()
+        AF.request("http://\(self.consulation.doctor.photo)").response(queue: DispatchQueue.global(qos: .background)) {[self] (response) in
+            guard let response = response.data else { return }
+            DispatchQueue.main.async {
+                imageView.image = UIImage(data: response)
+            }            
+        }
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 75/2
         imageView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.1).cgColor
@@ -168,6 +175,10 @@ class ConsultationPopover:  HugoMedUIViewController {
         textView.textColor = String.scanFor(key: .popover_subtitle).getTextColor()
         textView.textAlignment = .center
         textView.text = self.consulation.doctor.category
+        textView.adjustsFontSizeToFitWidth = true
+        textView.clipsToBounds = true
+        textView.lineBreakMode = .byTruncatingTail
+        textView.numberOfLines = 2
         return textView
     }()
     
@@ -184,7 +195,8 @@ class ConsultationPopover:  HugoMedUIViewController {
     lazy private var availableIn: UILabel = {
         let label = UILabel.label()
         let content = String.scanFor(key: .popover_subtitle_available_in)
-        label.attributedText = content.getAttributedText(alignment: .center, for: "Disponible en \(self.consulation.doctor.availableIn) min apróx.")
+        let availableIn = self.consulation.doctor.getMinsAvailability()
+        label.attributedText = content.getAttributedText(alignment: .center, for: "Disponible en \(availableIn) \(availableIn == 1 ? "min" : "mins") apróx.")
         label.backgroundColor = .clear
         return label
     }()

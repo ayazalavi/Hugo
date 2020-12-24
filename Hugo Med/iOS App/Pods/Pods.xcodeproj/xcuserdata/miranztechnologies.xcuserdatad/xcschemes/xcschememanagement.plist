@@ -4,40 +4,54 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>IGListDiffKit.xcscheme</key>
+		<key>Alamofire.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
-		<key>IGListKit.xcscheme</key>
+		<key>IGListDiffKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
-		<key>Pods-Hugo Med-Hugo MedUITests.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-			<key>orderHint</key>
-			<integer>3</integer>
-		</dict>
-		<key>Pods-Hugo Med.xcscheme</key>
+		<key>IGListKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
-		<key>Pods-Hugo MedTests.xcscheme</key>
+		<key>OpenTok.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>Pods-Hugo Med-Hugo MedUITests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
+		<key>Pods-Hugo Med.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>4</integer>
+		</dict>
+		<key>Pods-Hugo MedTests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>6</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>

@@ -7,3 +7,12 @@
 //
 
 import Foundation
+
+struct Currency: Codable {
+    let id: Int
+    let name: String
+    let logo: String?
+    let symbol: String?
+    let short_name: String?
+    let description: String?
+}

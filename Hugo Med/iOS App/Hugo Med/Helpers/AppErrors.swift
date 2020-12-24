@@ -10,5 +10,6 @@ import Foundation
 
 
 enum AppErrors: Error {
-    case PatientNotSet, NoResponse
+    case PatientNotSet, NoResponse, CompaniesNotFound, DoctorsError, DoctorServiceNotSet, AppointmentNotMade
+    case AppointmentNotExist, OpenTokSessionNotMade, OpenTokConnectionNoMade
 }

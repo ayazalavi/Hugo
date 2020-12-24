@@ -7,3 +7,14 @@
 //
 
 import Foundation
+
+struct Patient: Codable {
+    let id: Int
+    let first_name: String
+    let last_name: String
+    let email: String
+    let country_id: Int?
+    let date_of_birth: String?
+    let created_at: String?
+    let state: String?
+}

@@ -86,6 +86,7 @@ class AlertPopover:  HugoMedUIViewController {
     @objc func agree(_ sender: UIView) {
         self.view.backgroundColor = .clear
         self.dismiss(animated: true) {
+            AppData.shared.setNotification(seconds: self.doctor.availableIn)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: ConsulationStatus.requested.rawValue), object: nil, userInfo: ["doctor": self.doctor])
         }
     }

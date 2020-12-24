@@ -9,10 +9,11 @@
 import Foundation
 import IGListKit
 import UIKit
+import Alamofire
 
 class DoctorCollection: NSObject, ListDiffable {
     let id: Int
-    let doctors: [DoctorCard]
+    var doctors: [DoctorCard]
     
     init(id: Int, doctors: [DoctorCard]) {
         self.id = id
@@ -89,7 +90,14 @@ fileprivate class DoctorCollectionCell: UICollectionViewCell, ListBindable {
     var data: DoctorCard? {
         didSet {
             guard let data = data else { return }
-            doctorPhoto.image = UIImage(named: data.photo)
+            
+            AF.request("http://\(data.photo)").response(queue: DispatchQueue.global(qos: .background)) {[self] (response) in
+                guard let response = response.data else { return }
+                DispatchQueue.main.async {
+                    self.doctorPhoto.image = UIImage(data: response)
+                }            
+            }
+            
             name.text = data.name
             category.text = data.category
             let content3 = String.scanFor(key: .doctors_collection_center)
@@ -105,9 +113,9 @@ fileprivate class DoctorCollectionCell: UICollectionViewCell, ListBindable {
                 let paragraphstyle1: NSMutableParagraphStyle = NSMutableParagraphStyle()
                 paragraphstyle1.alignment = .left
                 let attributedText1 = NSMutableAttributedString(string: "Disponible en", attributes: [NSAttributedString.Key.font: content3.getFont(), NSAttributedString.Key.paragraphStyle: paragraphstyle1])
-                let attributedText2 = content2.getAttributedText(alignment: .center, for: "\(data.availableIn) \(data.availableIn == 1 ? "min" : "mins")\naprox.")
-                //attributedText1.append(attributedText2)
-                //attributedText1.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphstyle, range: NSRange(location: 0, length: attributedText1.length))
+                let availableIn = data.getMinsAvailability()
+                let attributedText2 = content2.getAttributedText(alignment: .center, for: "\(availableIn) \(availableIn == 1 ? "min" : "mins")\naprox.")
+               
                 centerAvailableIn.attributedText = attributedText2
                 centerAvailableIn.isHidden = false
                 centerText.attributedText = attributedText1
@@ -156,6 +164,9 @@ fileprivate class DoctorCollectionCell: UICollectionViewCell, ListBindable {
         textView.font = String.scanFor(key: .doctors_collection_name).getFont()
         textView.textColor = String.scanFor(key: .doctors_collection_name).getTextColor()
         textView.textAlignment = .left
+        textView.adjustsFontSizeToFitWidth = true
+        textView.clipsToBounds = true
+        textView.lineBreakMode = .byTruncatingTail
         return textView
     }()
     
@@ -165,6 +176,10 @@ fileprivate class DoctorCollectionCell: UICollectionViewCell, ListBindable {
         textView.font = String.scanFor(key: .doctors_collection_category).getFont()
         textView.textColor = String.scanFor(key: .doctors_collection_category).getTextColor()
         textView.textAlignment = .left
+        textView.numberOfLines = 2
+        textView.adjustsFontSizeToFitWidth = true
+        textView.clipsToBounds = true
+        textView.lineBreakMode = .byTruncatingTail
         return textView
     }()
     
@@ -241,27 +256,57 @@ fileprivate class DoctorCollectionCell: UICollectionViewCell, ListBindable {
     @objc func connectNow() {
         print("list handler")
         if let doctor = data {
-            let controller = ConsultationPopover(doctor: doctor)
-            controller.modalPresentationStyle = .overCurrentContext
-            controller.onStartConsulation = { doctor in
-                let controller = StartConsulation(doctor: doctor)
-                controller.onStartConsulation = { doctor in
-                    if doctor.isAvailable {
-                        self.viewController.navigationController?.pushViewController(CallSettingsInCall(doctor: doctor), animated: true)
-                    }
-                    else {
-                        let controller = AlertPopover(title: "Solicitar consulta", description: "Cuando solicites una consulta, nosotros te notificaremos a tu celular el momento en que nuestro médico se encuentre disponible para tu consulta.", icon: #imageLiteral(resourceName: "appointment"), doctor: doctor)
-                        controller.modalPresentationStyle = .overCurrentContext
-                        self.viewController.present(controller, animated: true) {
-                            
+            _ = APIRequests.shared.fetch(url: MED_API_URL.GET_DOCTOR_SERVICES(doctor.id)) { response in
+                let decoder = JSONDecoder()
+                guard let services = try? decoder.decode([Service].self, from: response), services.count > 0 else {
+                    throw AppErrors.DoctorServiceNotSet
+                }
+                AppData.shared.setDoctor(doctor, services)
+                if let current_service = AppData.shared.current_service {
+                    //print(" services: ", String(data: response, encoding: .utf8))
+                    let controller = ConsultationPopover(doctor: doctor, service: current_service)
+                    controller.modalPresentationStyle = .overCurrentContext
+                    controller.onStartConsulation = { doctor in
+                        let controller = StartConsulation(doctor: doctor)
+                        controller.onStartConsulation = { doctor in
+                            print("start")
+                            if doctor.isAvailable {
+                                if let patient = AppData.shared.current_patient,
+                                   let service_id = AppData.shared.current_service?.id,
+                                   let company_id = AppData.shared.microuniverse_company_id {
+                                    APIRequests.shared.make_new_appointment(New_Appointment(place_id: 0, type: "D", doctor_id: doctor.id, patient_email: patient.email, appointment_kind: "C", service_id: service_id, motive: "Dolor de Estómago", status_list:  "K", company_id: company_id, is_ondemand: true)) { response in
+                                        guard let appointment = try? decoder.decode(Appointment_Communication.self, from: response) else {
+                                            throw AppErrors.AppointmentNotMade
+                                        }
+                                        _ = APIRequests.shared.fetch(url: MED_API_URL.GET_PATIENT_APPOINTMENT(patient.id)) { response in
+                                            guard let appointments = try? decoder.decode([Appointment].self, from: response), appointments.count > 0 else {
+                                                throw AppErrors.AppointmentNotExist
+                                            }
+                                            AppData.shared.current_appointment = appointments.filter { $0.code == appointment.code }.first
+                                            print("current_appointment: \(String(describing: AppData.shared.current_appointment))")
+                                        }
+                                        AppData.shared.appointment_communication = appointment
+                                        print("appointment_communication: ", appointment)
+                                        if let controller = CallSettingsInCall(doctor: doctor) {
+                                            self.viewController.navigationController?.pushViewController(controller, animated: true)
+                                        }
+                                       // self.viewController.navigationController?.pushViewController(CallSettingsInCall(doctor: doctor), animated: true)
+                                    }
+                                }                                
+                            }
+                            else {
+                                let controller = AlertPopover(title: "Solicitar consulta", description: "Cuando solicites una consulta, nosotros te notificaremos a tu celular el momento en que nuestro médico se encuentre disponible para tu consulta.", icon: #imageLiteral(resourceName: "appointment"), doctor: doctor)
+                                controller.modalPresentationStyle = .overCurrentContext
+                                self.viewController.present(controller, animated: true)
+                            }
                         }
+                        controller.modalPresentationStyle = .overCurrentContext
+                        self.viewController.present(controller, animated: true)
                     }
+                    
+                    self.viewController.present(controller, animated: true)
                 }
-                controller.modalPresentationStyle = .overCurrentContext
-                self.viewController.present(controller, animated: true) {
-                }
-            }
-            self.viewController.present(controller, animated: true) {
+                
             }
         }
     }
@@ -271,8 +316,8 @@ fileprivate class DoctorCollectionCell: UICollectionViewCell, ListBindable {
         addSubview(self.doctorPhoto)
         content.frame = CGRect(x: self.contentView.bounds.minX, y: self.contentView.bounds.minY+30, width: self.contentView.bounds.width, height: self.contentView.bounds.height-30)
         doctorPhoto.frame = CGRect(x: 11, y: 0, width: 60, height: 60)
-        name.frame = CGRect(x: 11, y: 32, width: self.contentView.bounds.width, height: 15)
-        category.frame = CGRect(x: 11, y: 50, width: self.contentView.bounds.width, height: 10)
+        name.frame = CGRect(x: 11, y: 32, width: self.contentView.bounds.width - 22, height: 15)
+        category.frame = CGRect(x: 11, y: 50, width: self.contentView.bounds.width - 22, height: 25)
         availabilityButton.frame = CGRect(x: 88, y: 5, width: 75, height: 24)
         centerText.frame = CGRect(x: 8, y: 80, width: 152, height: 43)
         centerAvailableIn.frame = CGRect(x: 70, y: 80, width: 100, height: 43)
@@ -284,6 +329,7 @@ fileprivate class DoctorCollectionCell: UICollectionViewCell, ListBindable {
 //        self.contentView.bringSubviewToFront(centerText)
 //        self.contentView.bringSubviewToFront(centerAvailableIn)
 //        self.contentView.bringSubviewToFront(bottomButton)
+        print(self.contentView.bounds.width, name.frame)
         if let data = self.data {
             if data.isAvailable {
                 centerText.contentOffset = CGPoint(x: 0, y: -8)

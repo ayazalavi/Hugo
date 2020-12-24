@@ -8,19 +8,25 @@
 
 import Foundation
 import UIKit
+import OpenTok
 
 class CallSettingsInCall:  HugoMedUIViewController {
     
     let doctor: DoctorCard
-    
+    let appointment: Appointment_Communication
+    let openTok: OpenTok
     let contentStyle: Content = String.scanFor(key: .popover_title)
     let contentStyle2: Content = String.scanFor(key: .popover_subtitle)
     let contentStyle3: Content = String.scanFor(key: .welcome_button)
         
     // MARK: LIFE CYCLE METHODS, INITIALIZERS, ACTIONS AND EVENTS
-    init(doctor: DoctorCard) {
+    init?(doctor: DoctorCard) {
+        guard let appointment = AppData.shared.appointment_communication else {  fatalError("no appointment made") }
         self.doctor = doctor
+        self.appointment = appointment
+        self.openTok = OpenTok(apiKey: appointment.comm_keys.api, sessionID: appointment.comm_keys.session, token: appointment.comm_keys.videotoken)        
         super.init(nibName: nil, bundle: nil)
+        self.openTok.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -34,7 +40,13 @@ class CallSettingsInCall:  HugoMedUIViewController {
         navBarTitle = nil
         navBarTitleImage = "hugo-logo"
         self.view.backgroundColor = .white
-        
+        do {
+            try self.openTok.connect()
+        } catch AppErrors.OpenTokSessionNotMade, AppErrors.OpenTokConnectionNoMade {
+            print("opentok error: session/connection not made")
+        } catch {
+            print("opentok error: \(error)")
+        }
         // Do any additional setup after loading the view.
     }
     
@@ -46,6 +58,10 @@ class CallSettingsInCall:  HugoMedUIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        if let publisherView = openTok.publisher?.view  {
+            publisherView.frame = view.bounds
+            publisherView.setNeedsLayout()
+        }
         self.cameraview.frame = view.bounds
         NSLayoutConstraint.activate([
             controls.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
@@ -53,21 +69,20 @@ class CallSettingsInCall:  HugoMedUIViewController {
             textandButtons.topAnchor.constraint(equalTo: controls.bottomAnchor, constant: 23),
             textandButtons.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -74)
         ])
-//        self.agreeButton.topAnchor.constraint(equalTo: self.subtitleText.bottomAnchor, constant: 49),
-//
-//        self.titleText.topAnchor.constraint(equalTo: self.mainPhoto.bottomAnchor, constant: 45),
-//                   self.subtitleText.topAnchor.constraint(equalTo: self.titleText.bottomAnchor, constant: 31),
     }
     
     // MARK: ACTIONS
     
     @objc func popViewController() {
-        self.navigationController?.popViewController(animated: true)
+        var error: OTError?
+        openTok.session?.disconnect(&error)
+        
     }
     
     @objc func toggleAudio(_ sender: UIView) {
         if let audio = sender as? UIButton {
             audio.isSelected = !audio.isSelected
+            openTok.publisher?.publishAudio = !audio.isSelected
         }
     }
     
@@ -75,11 +90,12 @@ class CallSettingsInCall:  HugoMedUIViewController {
         if let video = sender as? UIButton {
             video.isSelected = !video.isSelected
             self.cameraview.backgroundColor = video.isSelected ? .black : .gray
+            openTok.publisher?.publishVideo = !video.isSelected
         }
     }
     
     @objc func startCall() {
-        let controller = InCall(doctor: self.doctor)
+        let controller = InCall(doctor: self.doctor, openTok: openTok)
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
@@ -133,8 +149,8 @@ class CallSettingsInCall:  HugoMedUIViewController {
         return view_
     }()
     
-    lazy private var cameraview: UIImageView = {
-        let imageview = UIImageView.photo()
+    lazy private var cameraview: UIView = {
+        let imageview = UIView()
         imageview.backgroundColor = .gray
         self.view.addSubview(imageview)
         return imageview
@@ -144,4 +160,71 @@ class CallSettingsInCall:  HugoMedUIViewController {
         return UIView(frame: CGRect(x: 0, y: 0, width: 1, height: 1))
     }
 
+}
+
+extension CallSettingsInCall: OTSessionDelegate {
+    func sessionDidConnect(_ session: OTSession) {
+       print("settings: The client connected")
+        
+        let settings = OTPublisherSettings()
+        settings.name = UIDevice.current.name
+        openTok.publisher = OTPublisher(delegate: self, settings: settings)
+
+        guard let publisher = openTok.publisher else { return }
+        
+        var error: OTError?
+        session.publish(publisher, error: &error)
+        guard error == nil else {
+            print(error!)
+            return
+        }
+
+        guard let publisherView = publisher.view else {
+            return
+        }
+        
+        let screenBounds = UIScreen.main.bounds
+        publisherView.frame = screenBounds
+        cameraview.addSubview(publisherView)
+    }
+
+    func sessionDidDisconnect(_ session: OTSession) {
+       print("settings: The client disconnected")
+        self.navigationController?.popViewController(animated: true)
+    }
+
+    func session(_ session: OTSession, didFailWithError error: OTError) {
+        print("settings: \(error.code).")
+        self.navigationController?.popViewController(animated: true)
+        
+    }
+
+    func session(_ session: OTSession, streamCreated stream: OTStream) {
+        print("settings: A stream was created")
+        openTok.subscribe(stream: stream, session: session)
+        openTok.subscriber?.delegate = self
+    }
+
+    func session(_ session: OTSession, streamDestroyed stream: OTStream) {
+       print("settings: A stream was destroyed")
+    }
+}
+
+// MARK: - OTPublisherDelegate callbacks
+extension CallSettingsInCall: OTPublisherDelegate {
+   func publisher(_ publisher: OTPublisherKit, didFailWithError error: OTError) {
+        print("settings: The publisher failed: \(error)")
+        self.navigationController?.popViewController(animated: true)
+   }
+}
+
+// MARK: - OTSubscriberDelegate callbacks
+extension CallSettingsInCall: OTSubscriberDelegate {
+   public func subscriberDidConnect(toStream subscriber: OTSubscriberKit) {
+       print("settings: The subscriber did connect to the stream.")
+   }
+
+   public func subscriber(_ subscriber: OTSubscriberKit, didFailWithError error: OTError) {
+       print("settings: The subscriber failed to connect to the stream.")
+   }
 }

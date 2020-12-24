@@ -9,5 +9,5 @@
 import Foundation
 
 struct EnterConsultation {
-    let doctor: DoctorCard
+    var doctor: DoctorCard
 }
