@@ -91,7 +91,7 @@ struct AppData {
                 content.sound = UNNotificationSound.default
 
                 //notification trigger can be based on time, calendar or location
-                let trigger = UNTimeIntervalNotificationTrigger(timeInterval:TimeInterval(5), repeats: false)
+                let trigger = UNTimeIntervalNotificationTrigger(timeInterval:TimeInterval(seconds), repeats: false)
                 
                 let uuidString = UUID().uuidString
                 //create request to display

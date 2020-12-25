@@ -75,7 +75,7 @@ class DoctorsCollection: HugoMedUIViewController, ListAdapterDataSource, ListAda
         print("doctors view: ", self.backGroundImage.frame)
         print("doctors opentok: \(String(describing: OpenTok.current?.session?.streams.count))")
         APIRequests.shared.delegate = self
-        APIRequests.shared.fetch(url: MED_API_URL.GET_DOCTORS_BY_MICROUNIVERSE(5)).every(seconds: 5)
+        APIRequests.shared.fetch(url: MED_API_URL.GET_DOCTORS_BY_MICROUNIVERSE(5)).every(seconds: 20)
         
         if let _ = OpenTok.current?.session, let doctor = AppData.shared.current_doctor {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: ConsulationStatus.requested.rawValue), object: nil, userInfo: ["doctor": doctor])
