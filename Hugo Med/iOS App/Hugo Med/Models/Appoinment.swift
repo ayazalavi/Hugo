@@ -44,11 +44,10 @@ struct New_Appointment: Codable {
     let is_ondemand: Bool
 }
 
-struct Appointment_Communication: Codable {
+struct Appointment_Response: Codable {
     let response: Bool
     let code: String
     let datetime: String
-    let comm_keys: Communication
 }
 
 struct Communication: Codable {

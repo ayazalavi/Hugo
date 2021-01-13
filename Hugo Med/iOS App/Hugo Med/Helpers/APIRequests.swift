@@ -44,7 +44,7 @@ class APIRequests {
                 request_.httpBody = body
             }
             request_.method = method
-        //    print(self.current_api_url?.url(), request_.method, request_.httpBody, request_.allHTTPHeaderFields)
+            print(self.current_api_url?.url(), request_.method, request_.httpBody, request_.allHTTPHeaderFields)
             return request_
         }))
     }

@@ -13,7 +13,8 @@ import OpenTok
 class CallSettingsInCall:  HugoMedUIViewController {
     
     let doctor: DoctorCard
-    let appointment: Appointment_Communication
+    let appointment: Appointment_Response
+    let comm_keys: Communication
     let openTok: OpenTok
     let contentStyle: Content = String.scanFor(key: .popover_title)
     let contentStyle2: Content = String.scanFor(key: .popover_subtitle)
@@ -21,10 +22,11 @@ class CallSettingsInCall:  HugoMedUIViewController {
         
     // MARK: LIFE CYCLE METHODS, INITIALIZERS, ACTIONS AND EVENTS
     init?(doctor: DoctorCard) {
-        guard let appointment = AppData.shared.appointment_communication else {  fatalError("no appointment made") }
+        guard let appointment = AppData.shared.appointment_response, let comm_keys = AppData.shared.comm_keys else {  fatalError("no appointment made") }
         self.doctor = doctor
         self.appointment = appointment
-        self.openTok = OpenTok(apiKey: appointment.comm_keys.api, sessionID: appointment.comm_keys.session, token: appointment.comm_keys.videotoken)        
+        self.comm_keys = comm_keys
+        self.openTok = OpenTok(apiKey: comm_keys.api, sessionID: comm_keys.session, token: comm_keys.videotoken)
         super.init(nibName: nil, bundle: nil)
         self.openTok.delegate = self
     }

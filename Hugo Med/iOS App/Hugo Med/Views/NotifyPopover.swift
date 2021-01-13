@@ -170,7 +170,7 @@ extension NotifyPopover: NetworkStatus {
         let decoder = JSONDecoder()
         switch APIRequests.shared.current_api_url {
             case .GET_DOCTOR_BY_ID(_):
-                guard var doctor = try? decoder.decode(Doctor.self, from: response) else {
+                guard let doctor = try? decoder.decode(Doctor.self, from: response) else {
                     throw AppErrors.DoctorsError
                 }
                 print("doctor: ", doctor)
@@ -178,12 +178,8 @@ extension NotifyPopover: NetworkStatus {
                 AppData.shared.current_doctor = doc
                 self.consulation.doctor = doc
                 AppData.shared.checkNotification(doctor: doc, reschedule: true)                
-                
-//                Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { timer in
-//                    doctor.waiting_time.waiting = 0
-//                    self.consulation.doctor = AppData.shared.getDoctorCard(doctor: doctor)
-//                    self.view.setNeedsLayout()
-//                }
+                self.view.setNeedsLayout()
+               
             default:
                 print("error")
         }

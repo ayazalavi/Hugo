@@ -82,8 +82,8 @@ class InCall:  HugoMedUIViewController {
     
     @objc func popViewController() {
         var error: OTError?
-        openTok.session?.disconnect(&error)
         gotoInvoice = false
+        openTok.session?.disconnect(&error)
     }
     
     @objc func toggleAudio(_ sender: UIView) {
@@ -103,9 +103,9 @@ class InCall:  HugoMedUIViewController {
     
     @objc func endCall() {
         var error: OTError?
+        gotoInvoice = true
         openTok.session?.disconnect(&error)
-        if error == nil, let invoice = invoice {
-            gotoInvoice = true
+        if let invoice = invoice {
             self.navigationController?.pushViewController(invoice, animated: true)
         }
         else {

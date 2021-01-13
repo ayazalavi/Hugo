@@ -274,9 +274,21 @@ fileprivate class DoctorCollectionCell: UICollectionViewCell, ListBindable {
                                 if let patient = AppData.shared.current_patient,
                                    let service_id = AppData.shared.current_service?.id,
                                    let company_id = AppData.shared.microuniverse_company_id {
-                                    APIRequests.shared.make_new_appointment(New_Appointment(place_id: 0, type: "D", doctor_id: doctor.id, patient_email: patient.email, appointment_kind: "C", service_id: service_id, motive: "Dolor de Estómago", status_list:  "K", company_id: company_id, is_ondemand: true)) { response in
-                                        guard let appointment = try? decoder.decode(Appointment_Communication.self, from: response) else {
+                                    APIRequests.shared.make_new_appointment(New_Appointment(place_id: 0, type: "D", doctor_id: doctor.id, patient_email: patient.email, appointment_kind: "C", service_id: service_id, motive: "Dolor de Estómago", status_list:  "K", company_id: 5, is_ondemand: true)) { response in
+                                        guard let appointment = try? decoder.decode(Appointment_Response.self, from: response) else {
                                             throw AppErrors.AppointmentNotMade
+                                        }
+                                        _ = APIRequests.shared.fetch(url: MED_API_URL.GET_COMM_KEYS_APPOINTMENT(appointment.code)) { response in
+                                            guard let comm_keys = try? decoder.decode(Communication.self, from: response) else {
+                                                throw AppErrors.AppointmentNotExist
+                                            }
+                                            AppData.shared.comm_keys = comm_keys
+                                            print("comm_keys: \(String(describing: AppData.shared.comm_keys))")
+                                            AppData.shared.appointment_response = appointment
+                                            print("appointment_communication: ", appointment)
+                                            if let controller = CallSettingsInCall(doctor: doctor) {
+                                                self.viewController.navigationController?.pushViewController(controller, animated: true)
+                                            }
                                         }
                                         _ = APIRequests.shared.fetch(url: MED_API_URL.GET_PATIENT_APPOINTMENT(patient.id)) { response in
                                             guard let appointments = try? decoder.decode([Appointment].self, from: response), appointments.count > 0 else {
@@ -285,11 +297,11 @@ fileprivate class DoctorCollectionCell: UICollectionViewCell, ListBindable {
                                             AppData.shared.current_appointment = appointments.filter { $0.code == appointment.code }.first
                                             print("current_appointment: \(String(describing: AppData.shared.current_appointment))")
                                         }
-                                        AppData.shared.appointment_communication = appointment
-                                        print("appointment_communication: ", appointment)
-                                        if let controller = CallSettingsInCall(doctor: doctor) {
-                                            self.viewController.navigationController?.pushViewController(controller, animated: true)
-                                        }
+//                                        AppData.shared.appointment_communication = appointment
+//                                        print("appointment_communication: ", appointment)
+//                                        if let controller = CallSettingsInCall(doctor: doctor) {
+//                                            self.viewController.navigationController?.pushViewController(controller, animated: true)
+//                                        }
                                        // self.viewController.navigationController?.pushViewController(CallSettingsInCall(doctor: doctor), animated: true)
                                     }
                                 }                                

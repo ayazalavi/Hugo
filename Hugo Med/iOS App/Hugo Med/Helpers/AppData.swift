@@ -16,7 +16,8 @@ struct AppData {
     var current_patient: Patient?
     var doctors: [Doctor]?
     var current_appointment: Appointment?
-    var appointment_communication: Appointment_Communication?
+    var appointment_response: Appointment_Response?
+    var comm_keys: Communication?
     var companies: [Company]?
     var microuniverse_company_id: Int?
     var services: [Service]?
@@ -28,7 +29,7 @@ struct AppData {
     mutating func setPatient(_ patient: Patient) {
         current_patient = patient
         current_appointment = nil
-        appointment_communication = nil
+        appointment_response = nil
     }
     
     mutating func setCompanies(_ companies: [Company]) {
@@ -91,7 +92,7 @@ struct AppData {
                 content.sound = UNNotificationSound.default
 
                 //notification trigger can be based on time, calendar or location
-                let trigger = UNTimeIntervalNotificationTrigger(timeInterval:TimeInterval(seconds), repeats: false)
+                let trigger = UNTimeIntervalNotificationTrigger(timeInterval:TimeInterval(seconds > 0 ? seconds : 1), repeats: false)
                 
                 let uuidString = UUID().uuidString
                 //create request to display

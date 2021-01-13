@@ -25,6 +25,7 @@ enum MED_API_URL {
     case GET_DOCTOR_SERVICES(Int)
     case REGISTER_ON_DEMAND_APPOINTMENT
     case GET_PATIENT_APPOINTMENT(Int)
+    case GET_COMM_KEYS_APPOINTMENT(String)
     
     enum Endpoints: String {
         case PATIENTS = "/users/patients"
@@ -50,6 +51,8 @@ enum MED_API_URL {
                 return MED_API_URLS.api_host + Endpoints.APPOINTMENTS.rawValue
             case .GET_PATIENT_APPOINTMENT(let patient_id):
                 return "\(MED_API_URLS.api_host + Endpoints.APPOINTMENTS.rawValue)?patient_id=\(patient_id)"
+            case .GET_COMM_KEYS_APPOINTMENT(let code):
+                return "\(MED_API_URLS.api_host + Endpoints.APPOINTMENTS.rawValue)/comm_keys?code=\(code)"
         }
     }
 }

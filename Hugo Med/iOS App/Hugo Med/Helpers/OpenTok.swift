@@ -44,8 +44,8 @@ class OpenTok: NSObject {
             delegate = self
         }
         print("opentok: apikey: \(self.apiKey)---session:\(self.sessionID)---token:\(self.token)---")
-        self.session = OTSession(apiKey: "47057204", sessionId: "1_MX40NzA1NzIwNH5-MTYwODgxMjI5NTk4N35hVHNEWkVKYXhyV1RTaUhtN2RqYmpKcGJ-fg", delegate: delegate)
-        self.session?.connect(withToken: "T1==cGFydG5lcl9pZD00NzA1NzIwNCZzaWc9OGEwZTc2NDU5NzU5MmNhMjYzMDQwNTc5ZjVlOGFhMWFiY2Y2YzZhZjpzZXNzaW9uX2lkPTFfTVg0ME56QTFOekl3Tkg1LU1UWXdPRGd4TWpJNU5UazROMzVoVkhORVdrVktZWGh5VjFSVGFVaHROMlJxWW1wS2NHSi1mZyZjcmVhdGVfdGltZT0xNjA4ODEyMzEyJm5vbmNlPTAuNDM4ODQyNTA0NDY4MjQ0OSZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNjA4ODk4NzExJmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9", error: &error)
+        self.session = OTSession(apiKey: self.apiKey, sessionId: self.sessionID, delegate: delegate)
+        self.session?.connect(withToken: self.token, error: &error)
         if error != nil {
             throw AppErrors.OpenTokConnectionNoMade
         }
