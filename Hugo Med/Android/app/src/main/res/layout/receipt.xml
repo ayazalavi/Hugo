@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     >
     <data>
-        <variable name="data" type="com.apps.client.juan.hugomed.data.entities.ReceiptWithConsultation" />
-        <variable name="doctor" type="com.apps.client.juan.hugomed.data.entities.Doctor" />
+        <variable name="appointment" type="com.apps.client.juan.hugomed.data.entities.Appointment_Response" />
+        <variable name="service" type="com.apps.client.juan.hugomed.data.entities.Service" />
     </data>
     <RelativeLayout android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -31,7 +31,7 @@
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:orientation="vertical" android:paddingTop="108dp">
                 <TextView style="@style/receipt_amount_title" android:text="@string/haz" android:layout_gravity="center_horizontal" />
-                <TextView style="@style/receipt_amount" android:text='@{"$"+String.format("%.2f", doctor.amount)}' android:layout_gravity="center_horizontal"
+                <TextView style="@style/receipt_amount" android:text='@{"$"+service.fee}' android:layout_gravity="center_horizontal"
                     android:layout_marginTop="8dp" />
                 <TextView style="@style/receipt_amount_sub" android:text="@string/en_hugo" android:layout_gravity="center_horizontal"
                     android:layout_marginTop="8dp" />
@@ -58,19 +58,19 @@
                             android:orientation="horizontal" android:paddingVertical="16dp">
                             <TextView style="@style/receipt_key" android:text="@string/receipt_id" />
                             <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1" />
-                            <TextView style="@style/receipt_value" android:text="@{data.receipt.transactionID}" />
+                            <TextView style="@style/receipt_value" android:text="@{appointment.code}" />
                         </LinearLayout>
                         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                             android:orientation="horizontal" android:paddingVertical="16dp">
                             <TextView style="@style/receipt_key" android:text="@string/receipt_time" />
                             <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1" />
-                            <TextView style="@style/receipt_value" android:text="@{data.consultation.timeCompleted.toString()}" />
+                            <TextView style="@style/receipt_value" android:text="@{appointment.datetime}" />
                         </LinearLayout>
                         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                             android:orientation="horizontal" android:paddingVertical="16dp">
                             <TextView style="@style/receipt_key" android:text="@string/receipt_service" />
                             <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1" />
-                            <TextView style="@style/receipt_value.service" android:text="@{data.receipt.service}" />
+                            <TextView style="@style/receipt_value.service" android:text="@{service.name}" />
                         </LinearLayout>
                         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                             android:orientation="horizontal" android:paddingVertical="16dp">
@@ -88,13 +88,13 @@
                             android:orientation="horizontal" android:paddingVertical="16dp">
                             <TextView style="@style/receipt_key" android:text="@string/comission" />
                             <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1" />
-                            <TextView style="@style/receipt_value" android:text='@{"$"+String.format("%.2f", doctor.amount*.2)}' />
+                            <TextView style="@style/receipt_value" android:text='@{"$"+String.format("%.2f", service.getFee()*.2)}' />
                         </LinearLayout>
                         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                             android:orientation="horizontal" android:paddingVertical="16dp">
                             <TextView style="@style/receipt_total" android:text="@string/total" />
                             <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1" />
-                            <TextView style="@style/receipt_total" android:text='@{"$"+String.format("%.2f", doctor.amount+doctor.amount*.2)}' />
+                            <TextView style="@style/receipt_total" android:text='@{"$"+String.format("%.2f", service.getFee()+service.getFee()*.2)}' />
                         </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>

@@ -1,28 +1,26 @@
 package com.apps.client.juan.hugomed.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.apps.client.juan.hugomed.R;
+import com.apps.client.juan.hugomed.data.helpers.General;
 import com.apps.client.juan.hugomed.data.viewmodels.OnBoardingViewModel;
 import com.apps.client.juan.hugomed.databinding.OnboardingBinding;
 import com.apps.client.juan.hugomed.databinding.OnboardingDetailedBinding;
 import com.apps.client.juan.hugomed.databinding.OnboardingSimpleBinding;
 import com.apps.client.juan.hugomed.helpers.SpannableHelper;
-
-import java.util.Timer;
-import java.util.TimerTask;
+import com.apps.client.juan.hugomed.service.APIRequest;
 
 public class OnBoarding extends AppCompatActivity {
 
@@ -39,11 +37,14 @@ public class OnBoarding extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(OnBoardingViewModel.class);
         boarding.pager.setAdapter(new Adapter(viewModel));
         setSupportActionBar(boarding.myToolbar);
+
+        General.hide_bottom_nav(this);
     }
 
     public void gotoDoctorsListing(View view) {
         Intent intent = new Intent(this, DoctorsListing.class);
         startActivity(intent);
+        finish();
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
     }
 

@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <variable name="doctor" type="com.apps.client.juan.hugomed.data.entities.Doctor" />
+        <variable name="doctor" type="com.apps.client.juan.hugomed.data.entities.DoctorWithSpecialities" />
         <variable name="doctorsListing" type="com.apps.client.juan.hugomed.activities.DoctorsListing" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -12,7 +12,7 @@
 
         <androidx.cardview.widget.CardView style="@style/doctors_card_image" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent" android:translationZ="1dp">
-            <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="center"  android:src="@{doctor.picture}" />
+            <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="center"  android:src="@{doctor.doctor.picture}" />
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView style="@style/doctors_card_details" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent" android:layout_width="match_parent"
@@ -20,12 +20,12 @@
             <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
                 android:orientation="vertical" android:paddingBottom="7dp"> <!-- android:paddingTop="47dp" -->
                 <Button style="@style/doctor_button_gray" android:layout_gravity="right"/>
-                <TextView style="@style/doctors_card_name" android:text="@{doctor.name}" android:layout_marginHorizontal="12dp" />
-                <TextView style="@style/doctors_card_category" android:text="@{doctor.category}" android:layout_marginHorizontal="13dp"  />
+                <TextView style="@style/doctors_card_name" android:text="@{doctor.doctor.get_full_name}" android:layout_marginHorizontal="12dp" />
+                <TextView style="@style/doctors_card_category" android:text="@{doctor.specialities.get(0).name}" android:layout_marginHorizontal="13dp"  />
                 <TextView style="@style/doctors_card_center_text_offline" android:gravity="center" android:id="@+id/centerText"
                     android:layout_marginHorizontal="8dp" android:background="@drawable/doctors_card_center" android:layout_gravity="center"  />
                 <Button style="@style/doctor_button_offline"
-                    android:layout_gravity="right"
+                    android:layout_gravity="right" android:layout_width="160dp" android:textSize="10sp"
                     android:layout_marginHorizontal="8dp" android:onClick="@{() -> doctorsListing.showDialog(doctor)}" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>

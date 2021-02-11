@@ -11,17 +11,25 @@ import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.apps.client.juan.hugomed.R;
+import com.apps.client.juan.hugomed.data.entities.Appointment;
+import com.apps.client.juan.hugomed.data.entities.Company;
 import com.apps.client.juan.hugomed.data.entities.ConsulationState;
 import com.apps.client.juan.hugomed.data.entities.Consultation;
+import com.apps.client.juan.hugomed.data.entities.Currency;
 import com.apps.client.juan.hugomed.data.entities.Doctor;
+import com.apps.client.juan.hugomed.data.entities.DoctorSpecialities;
 import com.apps.client.juan.hugomed.data.entities.FAQ;
+import com.apps.client.juan.hugomed.data.entities.Patient;
 import com.apps.client.juan.hugomed.data.entities.Receipt;
+import com.apps.client.juan.hugomed.data.entities.Service;
+import com.apps.client.juan.hugomed.data.entities.Speciality;
 
 import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Doctor.class, Consultation.class, FAQ.class, Receipt.class}, version = 3, exportSchema = false)
+@Database(entities = {Appointment.class, Company.class, Doctor.class, DoctorSpecialities.class,
+        Patient.class, FAQ.class, Service.class, Receipt.class, Speciality.class, Consultation.class}, version = 6, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class HugoMedDatabase extends RoomDatabase {
 
@@ -31,7 +39,7 @@ public abstract class HugoMedDatabase extends RoomDatabase {
     private static final int NUMBER_OF_THREADS = 4;
     public static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
-    public Context mContext;
+    public Context mContext; 
 
     public static HugoMedDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
@@ -70,7 +78,7 @@ public abstract class HugoMedDatabase extends RoomDatabase {
                 dao.deleteAllConsultations();
                 dao.deleteAllReceipts();
                 int i=1;
-                Doctor doc = new Doctor(i++, "" + R.drawable.doctors_listing_photo, "Carmen Beltrán", "Médico general", true, 0, 8);
+                /*Doctor doc = new Doctor(i++, "" + R.drawable.doctors_listing_photo, "Carmen Beltrán", "Médico general", true, 0, 8);
                 doc.picture = INSTANCE.mContext.getResources().getDrawable(R.drawable.doctors_listing_photo);
                 dao.insertDoctor(doc);
                 Doctor doc1 = new Doctor(i++,"" + R.drawable.doctors_listing_photo,"Alfonso Beltrán", "Médico general", true, 0, 15);
@@ -90,7 +98,7 @@ public abstract class HugoMedDatabase extends RoomDatabase {
                 dao.insertDoctor(doc5);
                 Doctor doc6 = new Doctor(i++,"" + R.drawable.doctors_listing_photo,"Eugenia Flores", "Médico general", false, 2, 8);
                 doc6.picture = INSTANCE.mContext.getResources().getDrawable(R.drawable.doctors_listing_photo);
-                dao.insertDoctor(doc6);
+                dao.insertDoctor(doc6);*/
 
                 i=1;
                 FAQ faq = new FAQ(i++, i+" Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sed ligula nulla?", "Sed aliquam nec diam eu ultricies. Curabitur mollis sollicitudin lacus, sed aliquet nisi molestie a. Aenean quis consectetur est, nec luctus risus. Etiam fringilla feugiat metus, tincidunt aliquam sapien malesuada vel. Nulla at ultricies ante, sed mattis ipsum. Fusce dignissim maximus massa id aliquet. ");
