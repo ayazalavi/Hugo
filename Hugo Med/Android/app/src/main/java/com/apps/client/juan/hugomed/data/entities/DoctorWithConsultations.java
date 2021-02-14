@@ -10,7 +10,7 @@ public class DoctorWithConsultations {
     @Embedded
     public Doctor doctor;
     @Relation(
-            parentColumn = "doctorID",
+            parentColumn = "id",
             entityColumn = "doctorID"
     )
     public List<Consultation> consulations;

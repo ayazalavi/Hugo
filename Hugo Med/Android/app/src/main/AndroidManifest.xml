@@ -3,8 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.apps.client.juan.hugomed">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/app_icon"
@@ -13,7 +11,6 @@
         android:supportsRtl="true"
         android:debuggable="true"
         android:theme="@style/BaseAppTheme"
-        android:usesCleartextTraffic="true"
         tools:ignore="HardcodedDebugMode">
         <activity android:name=".activities.OnBoarding">
             <intent-filter>
@@ -22,24 +19,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.CallSettings" android:launchMode="singleTop" />
-        <activity android:name=".activities.ConsultationSlideup" android:theme="@style/BaseAppTheme.NoActionBar.Popover"  />
-        <activity android:name=".activities.DoctorsListing" android:launchMode="singleTask" >
+        <activity android:name=".activities.CallSettings" />
+        <activity android:name=".activities.ConsultationSlideup" android:theme="@style/BaseAppTheme.NoActionBar.Popover" />
+        <activity android:name=".activities.DoctorsListing" >
 
         </activity>
-        <activity android:name=".activities.EnterConsultationSlideUp" android:theme="@style/BaseAppTheme.NoActionBar.Popover" android:launchMode="singleTop" />
+        <activity android:name=".activities.EnterConsultationSlideUp" android:theme="@style/BaseAppTheme.NoActionBar.Popover" />
         <activity android:name=".activities.FAQListing" >
 
         </activity>
         <activity android:name=".activities.InCall" />
         <activity android:name=".activities.NotifyPopover" android:theme="@style/BaseAppTheme.NoActionBar.Popover" />
-        <activity android:name=".activities.Receipt" android:clearTaskOnLaunch="true" >
+        <activity android:name=".activities.Receipt"  >
 
         </activity>
         <activity android:name=".activities.StartConsultation" />
-
-        <service android:name=".service.APIRequest" android:exported="false" android:description="@string/service_description" />
-
     </application>
 
 </manifest>

@@ -9,17 +9,13 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 import androidx.room.Update;
 
-import com.apps.client.juan.hugomed.data.entities.Company;
 import com.apps.client.juan.hugomed.data.entities.ConsulationState;
 import com.apps.client.juan.hugomed.data.entities.Consultation;
 import com.apps.client.juan.hugomed.data.entities.Doctor;
 import com.apps.client.juan.hugomed.data.entities.DoctorWithConsultations;
-import com.apps.client.juan.hugomed.data.entities.DoctorWithSpecialities;
 import com.apps.client.juan.hugomed.data.entities.FAQ;
-import com.apps.client.juan.hugomed.data.entities.Patient;
 import com.apps.client.juan.hugomed.data.entities.Receipt;
 import com.apps.client.juan.hugomed.data.entities.ReceiptWithConsultation;
-import com.apps.client.juan.hugomed.data.entities.Speciality;
 
 import java.util.List;
 
@@ -28,14 +24,6 @@ public interface MainDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insertDoctor(Doctor doctor);
-
-    @Transaction
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertDoctors(Doctor... doctors);
-
-    @Transaction
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertSpecialities(Speciality... specialities);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertFAQ(FAQ faq);
@@ -46,23 +34,11 @@ public interface MainDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insertReceipt(Receipt receipt);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long insertPatient(Patient patient);
-
-    @Transaction
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertCompanies(Company... companies);
-
     @Update
     void updateConsultation(Consultation consulation);
 
-    @Transaction
-    @Query("SELECT * from Doctor")
-    public LiveData<List<DoctorWithSpecialities>> getDoctors();
-
-    @Transaction
-    @Query("SELECT * from Doctor")
-    public List<DoctorWithSpecialities> getDoctorsWithSpecialities();
+    @Query("SELECT * from Doctor ORDER BY name DESC")
+    LiveData<List<Doctor>> getDoctors();
 
     @Query("SELECT * from Consultation where state = :state")
     List<Consultation> getConsultationsByState(ConsulationState state);
@@ -71,7 +47,7 @@ public interface MainDao {
     Consultation getConsultationsByID(long ID);
 
     @Transaction
-    @Query("SELECT * from Doctor where doctorID = :docid")
+    @Query("SELECT * from Doctor where id = :docid")
     DoctorWithConsultations getDoctorConsultations(long docid);
 
     @Query("SELECT * from FAQ ORDER BY id ASC")
@@ -80,9 +56,6 @@ public interface MainDao {
     @Transaction
     @Query("SELECT * FROM Consultation")
     List<ReceiptWithConsultation> getAllReceipts();
-
-    @Query("SELECT * from Company where tag_name=:name")
-    List<Company> getCompanies(String name);
 
     @Query("DELETE FROM Doctor")
     void deleteAllDoctors();

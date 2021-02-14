@@ -78,7 +78,7 @@
     </style>
 
     <style name="app_vsmall_button" parent="app_small_button">
-        <item name="android:textSize">8sp</item>
+        <item name="android:textSize">9sp</item>
         <item name="android:lineHeight">0dp</item>
     </style>
 
@@ -210,7 +210,7 @@
 
     <style name="doctors_card_center_text" parent="BaseAppTheme">
         <item name="android:fontFamily">@font/gothamhtfmedium</item>
-        <item name="android:textSize">8sp</item>
+        <item name="android:textSize">9sp</item>
         <item name="android:textColor">@color/dark_pink</item>
         <item name="android:lineHeight">10dp</item>
         <item name="android:textAlignment">center</item>
@@ -247,6 +247,7 @@
     <style name="doctor_button_online" parent="doctor_button_connect">
         <item name="android:background">@drawable/icon_circle_green_</item>
         <item name="android:text">@string/conectarme</item>
+        <item name="android:layout_width">107dp</item>
         <item name="android:textAlignment">viewStart</item>
         <item name="android:layout_marginHorizontal">8dp</item>
     </style>
@@ -254,6 +255,7 @@
     <style name="doctor_button_offline" parent="doctor_button_connect">
         <item name="android:background">@drawable/icon_circle_gray_</item>
         <item name="android:text">@string/consulta</item>
+        <item name="android:layout_width">137dp</item>
         <item name="android:textAlignment">viewStart</item>
         <item name="android:layout_marginHorizontal">8dp</item>
     </style>
@@ -282,7 +284,7 @@
     <style name="alert_details" parent="BaseAppTheme">
         <item name="cardCornerRadius">18dp</item>
         <item name="android:layout_width">318dp</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">225dp</item>
         <item name="cardBackgroundColor">@color/white</item>
     </style>
 
@@ -439,7 +441,7 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:text">@string/entrar</item>
         <item name="android:background">@drawable/icon_circle_</item>
-        <item name="android:layout_width">82dp</item>
+        <item name="android:layout_width">72dp</item>
         <item name="android:textAlignment">viewStart</item>
     </style>
 

@@ -25,7 +25,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.apps.client.juan.hugomed.R;
 import com.apps.client.juan.hugomed.data.entities.Doctor;
 import com.apps.client.juan.hugomed.data.entities.FAQ;
-import com.apps.client.juan.hugomed.data.helpers.General;
 import com.apps.client.juan.hugomed.data.helpers.HugoMedDatabase;
 import com.apps.client.juan.hugomed.data.viewmodels.DoctorsViewModel;
 import com.apps.client.juan.hugomed.data.viewmodels.FAQViewModel;
@@ -88,7 +87,6 @@ public class FAQListing extends AppCompatActivity {
         faqBinding.myToolbar.setNavigationOnClickListener(v -> {
             finish();
         });
-        General.hide_bottom_nav(this);
     }
 
     @BindingAdapter("android:src")

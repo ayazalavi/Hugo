@@ -8,7 +8,6 @@ import androidx.lifecycle.LiveData;
 import com.apps.client.juan.hugomed.data.entities.ConsulationState;
 import com.apps.client.juan.hugomed.data.entities.Consultation;
 import com.apps.client.juan.hugomed.data.entities.Doctor;
-import com.apps.client.juan.hugomed.data.entities.DoctorWithSpecialities;
 import com.apps.client.juan.hugomed.data.helpers.MainRepository;
 import com.apps.client.juan.hugomed.data.entities.Receipt;
 
@@ -18,7 +17,7 @@ public class DoctorsViewModel extends AndroidViewModel {
 
     private MainRepository mRepository;
 
-    private LiveData<List<DoctorWithSpecialities>> mAllDoctors;
+    private LiveData<List<Doctor>> mAllDoctors;
 
     private Consultation requestedConsultation;
 
@@ -36,7 +35,7 @@ public class DoctorsViewModel extends AndroidViewModel {
         return null;
     }
 
-    public LiveData<List<DoctorWithSpecialities>> getAllDoctors() { return mAllDoctors; }
+    public LiveData<List<Doctor>> getAllDoctors() { return mAllDoctors; }
 
     public Consultation getRequestedConsultation(long consulationID) { return mRepository.getConsultation(consulationID); }
 

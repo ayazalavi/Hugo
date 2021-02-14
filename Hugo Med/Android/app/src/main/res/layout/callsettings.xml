@@ -18,8 +18,7 @@
             app:tint="@color/white" />
     </androidx.appcompat.widget.Toolbar>
 
-    <RelativeLayout android:id="@+id/publisher" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@android:color/holo_orange_dark">
-    </RelativeLayout>
+    <View android:layout_width="match_parent" android:layout_height="match_parent" android:background="@android:color/darker_gray" />
 
     <Button style="@style/green_button_large" android:text="@string/settings_iniciar" app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent"
@@ -37,8 +36,8 @@
     <LinearLayout android:orientation="horizontal" style="@style/BaseAppTheme"
         app:layout_constraintBottom_toTopOf="@id/settings_title" android:layout_marginBottom="5dp"
         app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent">
-        <ImageButton style="@style/BaseAppTheme" android:id="@+id/audio" android:background="@drawable/audio" android:onClick="toggleAudio"/>
+        <ImageButton style="@style/BaseAppTheme" android:id="@+id/audio" android:background="@drawable/audio"/>
         <View style="@style/BaseAppTheme" android:layout_width="10dp" android:layout_height="1dp" />
-        <ImageButton style="@style/BaseAppTheme" android:id="@+id/video" android:background="@drawable/video" android:onClick="toggleVideo"/>
+        <ImageButton style="@style/BaseAppTheme" android:id="@+id/video" android:background="@drawable/video"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

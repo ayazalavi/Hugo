@@ -1,51 +1,44 @@
 package com.apps.client.juan.hugomed.data.entities;
 
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 
-import androidx.room.ColumnInfo;
-import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.Ignore;
-import androidx.room.Junction;
 import androidx.room.PrimaryKey;
-import androidx.room.Relation;
-
-import java.sql.Array;
-import java.util.List;
 
 @Entity
 public class Doctor {
     @PrimaryKey
-    @ColumnInfo(name = "doctorID")
     public long id;
 
-    public String email;
+    public String photoURL;
 
-    public String slug;
+    public String name;
 
-    public String get_full_name;
+    public String category;
 
-    public String avatar;
+    public boolean isAvailable;
 
-    public int country;
+    public int availabilityMins;
 
-    public boolean on_demand;
-
-    public String state;
-
-    @Embedded public Waiting_time waiting_time;
-
-    @Ignore
-    public Speciality[] specialties;
+    public double amount;
 
     @Ignore
     public Drawable picture;
 
-    public void setAvailable() {
-        this.waiting_time.waiting = 0;
+    public Doctor(long id, String photoURL, String name, String category, boolean isAvailable, int availabilityMins, double amount) {
+        this.id = id;
+        this.photoURL = photoURL;
+        this.name = name;
+        this.category = category;
+        this.isAvailable = isAvailable;
+        this.availabilityMins = availabilityMins;
+        this.amount = amount;
+        this.picture = picture;
     }
 
+    public void setAvailable() {
+        this.isAvailable = true;
+        this.availabilityMins = 0;
+    }
 }
-
-
