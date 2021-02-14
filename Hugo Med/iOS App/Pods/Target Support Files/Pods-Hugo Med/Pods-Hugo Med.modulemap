@@ -1,6 +1,0 @@
-framework module Pods_Hugo_Med {
-  umbrella header "Pods-Hugo Med-umbrella.h"
-
-  export *
-  module * { export * }
-}
